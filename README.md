@@ -100,3 +100,7 @@ For more information on SemVer, please visit <http://semver.org/>.
     See the License for the specific language governing permissions and
     limitations under the License.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/martinmicunda/employee-scheduling/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

@@ -1,0 +1,63 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1562" measuredH="584" mockupW="1344" mockupH="580">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="218" y="4" w="1121" h="580" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//kidsfun.sk/employees/%23profile</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TextArea" x="233" y="115" w="1081" h="431" measuredW="200" measuredH="140" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::MenuBar" x="789" y="87" w="511" h="29" measuredW="517" measuredH="29" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Schedule%2C%20Requests%2C%20Employees%2C%20Hotels%2C%20Documents%2C%20Reports%2C%20Me</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="233" y="87" w="-1" h="-1" measuredW="89" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Marek%20Micunda</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::Canvas" x="252" y="176" w="165" h="140" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Label" x="262" y="179" w="-1" h="-1" measuredW="43" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>Hotels</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::HRule" x="252" y="201" w="165" h="-1" measuredW="100" measuredH="10" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Label" x="267" y="211" w="133" h="21" measuredW="128" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Kidsfun%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Label" x="267" y="232" w="-1" h="-1" measuredW="129" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Skolka%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%200</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::StickyNote" x="1321" y="108" w="241" h="354" measuredW="109" measuredH="123" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1.%20Option%20to%20display%20user%20as%20a%20list%20or%20grid.%20%0A2.%20When%20user%20click%20Add%20New%20Employee%20button%20the%20dialog%20box%20should%20be%20displayed%20REF%20to%20employees-add%20wireframe.%0A3.%20Delete%20employee%20button%20will%20be%20enable%20when%20user%20check%20at%20least%20one%20checbox.%20If%20user%20try%20delete%20employee%20the%20alert%20window%20should%20be%20displayed%20with%20message%20%22Are%20you%20sure%3F%22.%0A4.%20Link%20to%20the%20user%20details.%20REF%20to%20profile%20wireframe.%0A5.%20Should%20open%20email%20modal%20box.%0A6.%20It%20should%20search%20by%20Name%20and%20Email%0A7.%20Should%20how%20and%20hide%20inactive%20employees/%20Display%20this%20row%20with%20red%20color.</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::Canvas" x="252" y="316" w="165" h="114" measuredW="100" measuredH="70" zOrder="10" locked="false" isInGroup="-1"/>
+    <control controlID="68" controlTypeID="com.balsamiq.mockups::Canvas" x="252" y="430" w="165" h="101" measuredW="100" measuredH="70" zOrder="11" locked="false" isInGroup="-1"/>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::HRule" x="252" y="344" w="165" h="-1" measuredW="100" measuredH="10" zOrder="12" locked="false" isInGroup="-1"/>
+    <control controlID="70" controlTypeID="com.balsamiq.mockups::HRule" x="252" y="462" w="165" h="-1" measuredW="100" measuredH="10" zOrder="13" locked="false" isInGroup="-1"/>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::Label" x="262" y="320" w="-1" h="-1" measuredW="121" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>Employees%20Time%20On</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::Label" x="262" y="437" w="-1" h="-1" measuredW="124" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>Employees%20Time%20Off</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

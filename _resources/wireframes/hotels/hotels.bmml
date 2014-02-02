@@ -1,0 +1,62 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1339" measuredH="584" mockupW="1121" mockupH="580">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="218" y="4" w="1121" h="580" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//kidsfun.sk/employees/%23profile</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::TextArea" x="233" y="115" w="1081" h="431" measuredW="200" measuredH="140" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::MenuBar" x="789" y="87" w="511" h="29" measuredW="517" measuredH="29" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Schedule%2C%20Requests%2C%20Employees%2C%20Hotels%2C%20Documents%2C%20Reports%2C%20Me</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="233" y="87" w="-1" h="-1" measuredW="89" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Marek%20Micunda</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Image" x="249" y="134" w="-1" h="-1" measuredW="116" measuredH="30" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>../employees/assets/fgfg.png</src>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Button" x="387" y="136" w="-1" h="-1" measuredW="122" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>+%20Add%20New%20Hotel</text>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::DataGrid" x="249" y="211" w="1052" h="232" measuredW="309" measuredH="83" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>%5B%5D%2C%20Name%20%5E%2C%20Address%20%5Ev%2C%20City%20%5Ev%2C%20Color%20%20%5Ev%0A%5B%5D%2C%20Slovan%2C%20bla%20bla%2C%20Smokovec%2C%20RED%0A%5B%5D%2C%20Permon%2C%20cdscd%2C%20Poprad%2C%20BLUE</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::Button" x="532" y="136" w="144" h="27" measuredW="107" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>left</align>
+        <text>-%20Delete%20Hotel</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::Canvas" x="249" y="174" w="1051" h="37" measuredW="100" measuredH="70" zOrder="8" locked="false" isInGroup="-1"/>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::SearchBox" x="258" y="179" w="-1" h="-1" measuredW="120" measuredH="25" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::Button" x="387" y="178" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Search</text>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::CheckBox" x="1112" y="180" w="-1" h="-1" measuredW="175" measuredH="22" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>show%20/%20hide%20inactive%20hotels</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

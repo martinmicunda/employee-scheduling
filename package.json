@@ -1,0 +1,47 @@
+{
+    "name": "employee-scheduling",
+    "version": "0.1.0",
+    "author": "Martin Micunda <martinmicunda@hotmail.com>",
+    "description": "MEAN (Mongo, Express, Angular, Node) - An employee scheduling application",
+    "homepage": "http://employee-scheduling.herokuapp.com",
+    "private": true,
+    "scripts": {
+        "start": "node app.js",
+        "test": "TODO: add test command",
+        "deploy": "TODO: add deploy command",
+        "postinstall": "node node_modules/bower/bin/bower install"
+    },
+    "main": "app.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/martinmicunda/employee-scheduling"
+    },
+    "bugs": {
+        "url": "https://github.com/martinmicunda/employee-scheduling/issues"
+    },
+    "keywords": [
+        "employee scheduling"
+    ],
+    "dependencies": {
+        "express": "3.4.8",
+        "nconf": "0.6.9",
+        "grunt": "0.4.2",
+        "jade": "1.1.5",
+        "stylus": "0.42.x"
+    },
+    "devDependencies": {
+        "grunt-contrib-clean": "0.5.0",
+        "time-grunt": "0.2.9",
+        "open": "0.0.4"
+    },
+    "licenses": [
+        {
+            "type": "Apache License, Version 2.0",
+            "url": "https://github.com/martinmicunda/employee-scheduling/master/LICENSE"
+        }
+    ],
+    "engines": {
+        "node": "0.10.x",
+        "npm": "1.2.x"
+    }
+}

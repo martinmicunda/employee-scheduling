@@ -6,7 +6,7 @@ nconf.argv().env().use('memory');
 
 // set a environment variable on `nconf`
 console.log('configuration env: ' + nconf.get("NODE:ENV") );
-var env = nconf.get("NODE:ENV") || "development";
+var env = nconf.get("NODE_ENV") || "development";
 nconf.set("env", env);
 
 // set an app root path variable on `nconf`

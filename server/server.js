@@ -21,10 +21,7 @@ require('./config/routes')(app);
 
 // Start up the server on the port specified in the config
 server.listen(process.env.PORT || config.get("express:port"), function() {
-    console.log('env: ' + config.get("env"));
     if(config.get("env") === 'development') {
-        console.log('Inside of open block');
-        console.log('env: ' + config.get("env"));
         // Once the server is listening automatically open up a browser
         var open = require('open');
         open('http://localhost:' + config.get("express:port") + '/');

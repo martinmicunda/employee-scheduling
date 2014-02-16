@@ -5,7 +5,6 @@ var path = require('path'),
 nconf.argv().env().use('memory');
 
 // set a environment variable on `nconf`
-console.log('configuration env: ' + nconf.get("NODE_ENV") );
 var env = nconf.get("NODE_ENV") || "development";
 nconf.set("env", env);
 

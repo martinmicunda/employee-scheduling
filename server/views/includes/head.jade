@@ -1,10 +1,31 @@
-//CSS app
-link(rel='stylesheet', href='assets/css/style.css')
+<!-- build:css(client) client/css/vendor.min.css -->
+<!-- bower:css -->
+<link rel="stylesheet" href="client/vendor/bootstrap/dist/css/bootstrap.css" />
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:css(client) assets/css/app.min.css -->
+link(rel='stylesheet', href='client/assets/css/app.css')
+<!-- endbuild -->
+
+//TODO: move this to foot.jade once grunt-bower-install will be updated to v1.0.0
+<!-- build:js(client) js/vendor.min.js -->
+<!-- bower:js -->
+<script src="client/vendor/jquery/dist/jquery.js"></script>
+<script src="client/vendor/angular/angular.js"></script>
+<script src="client/vendor/angular-route/angular-route.js"></script>
+<script src="client/vendor/bootstrap/dist/js/bootstrap.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js(client) js/app.min.js -->
+script(type='text/javascript', src='client/app/pp.js')
+script(type='text/javascript', src='client/app/rr.js')
+script(type='text/javascript', src='client/app/dd.js')
+<!-- endbuild -->
+
 //if (req.host='localhost')
+if env === 'development'
     //Livereload script rendered
     script(type='text/javascript', src='http://localhost:35729/livereload.js')
-
-//if lt IE 9
-    script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
-
 

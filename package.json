@@ -1,8 +1,12 @@
 {
     "name": "employee-scheduling",
     "version": "0.1.0",
-    "author": "Martin Micunda <martinmicunda@hotmail.com>",
     "description": "MEAN (Mongo, Express, Angular, Node) - An employee scheduling application",
+    "author": {
+        "name": "Martin Micunda",
+        "email": "martinmicunda@hotmail.com",
+        "web": "http://martinm.net"
+    },
     "homepage": "http://employee-scheduling.herokuapp.com",
     "private": true,
     "scripts": {

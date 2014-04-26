@@ -27,7 +27,7 @@ install:
 before_script:
 #  - node server/src/server.js &
 #  - sleep 3 # give server some time to start
-#  - gulp build
+  - gulp build
 
 # run unit and e2e tests
 script:

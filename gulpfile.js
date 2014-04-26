@@ -62,7 +62,7 @@ var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
 var CDN_BASE            = 'http://d28jyvyqhe6y3z.cloudfront.net';
 var MODULE_NAME         = 'ojng';
 var API_VERSION         = '1.0';
-var GIT_REMOTE_URL      = 'git@github.com:martinmicunda/employee-scheduling.git';
+var GIT_REMOTE_URL      = 'https://github.com/martinmicunda/employee-scheduling.git';
 var LIVERELOAD_PORT     = 35729;
 var TEMPLATE_BASE_PATH  = 'templates';
 

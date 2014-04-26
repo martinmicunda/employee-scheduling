@@ -60,7 +60,7 @@ MEAN (Mongo, Express, Angular, Node) - An employee scheduling application.
       unit/               --> unit test files
         client/             --> client unit tests
         server/             --> server unit tests
-    package.json        --> for npm  d  d
+    package.json        --> for npm 
 
 ## Versioning
 

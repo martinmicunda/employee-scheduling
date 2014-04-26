@@ -7,6 +7,8 @@ lib-cov
 *.pid
 *.gz
 
+.DS_Store
+
 pids
 logs
 results
@@ -14,9 +16,15 @@ results
 npm-debug.log
 node_modules
 
+# WebStorm files
 .idea/
 
-_doc/
-dist/
-
+# 3rd dependencies
 client/src/vendor/
+
+# build and tmp folders for production
+build/
+.tmp/
+
+# ignore angular env file
+client/src/app/config-env.js

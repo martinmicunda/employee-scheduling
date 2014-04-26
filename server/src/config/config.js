@@ -1,19 +1,22 @@
-var path = require('path'),
-    nconf = require('nconf');
+'use strict';
 
-// store a nested JSON representation of the configuration into in-memory storage engine
-nconf.argv().env().use('memory');
+var nconf = require('nconf');
 
-// set a environment variable on `nconf`
-var env = nconf.get("NODE_ENV") || "development";
-nconf.set("env", env);
+function Config(){
+    // store a JSON representation of the configuration into in-memory storage engine
+    nconf.argv().env().use('memory');
 
-// set an app root path variable on `nconf`
-var appRoot = path.normalize(__dirname + '/../../');
-nconf.set("appRoot", appRoot);
+    // set a environment variable on `nconf`
+    var env = nconf.get("NODE_ENV") || "development";
+    nconf.set("env", env);
 
-// load app configuration
-nconf.file("all", __dirname + "/env/all.json");
-nconf.file(env, __dirname + "/env/" + env + ".json");
+    // load app configuration
+    nconf.file("all", __dirname + "/env/all.json");
+    nconf.file(env, __dirname + "/env/" + env + ".json");
+}
 
-module.exports = nconf
+Config.prototype.get = function(key) {
+    return nconf.get(key);
+};
+
+module.exports = new Config();

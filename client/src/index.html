@@ -3,17 +3,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <base href="/">
-    <title></title>
+    <title>Employee Scheduling</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link href="../favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <!-- build:css ../assets/styles/vendor.min.css -->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+
+    <!-- build:css_libs assets/styles/vendor.min.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="../vendor/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css ../assets/styles/app.min.css -->
-    <link rel="stylesheet" href="../assets/styles/main.css">
+
+    <!-- build:css assets/styles/app.min.css -->
     <!-- endbuild -->
 </head>
 <body>
@@ -42,17 +43,18 @@
     ga('send', 'pageview');
 </script>
 
-<!-- build:js ../scripts/vendor.min.js -->
+<!-- build:js_libs scripts/vendor.min.js -->
 <!-- bower:js -->
-<script src="../vendor/jquery/dist/jquery.js"></script>
-<script src="../vendor/angular/angular.js"></script>
-<script src="../vendor/angular-route/angular-route.js"></script>
-<script src="../vendor/bootstrap/dist/js/bootstrap.js"></script>
+<script src="vendor/jquery/dist/jquery.js"></script>
+<script src="vendor/angular/angular.js"></script>
+<script src="vendor/angular-route/angular-route.js"></script>
+<script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
-<!-- build:js(client) ../scripts/app.min.js -->
-<script src="./app/app.js"></script>
+<!-- build:js({.tmp,client/src}) scripts/app.min.js -->
+<script src="app/dd.js"></script>
+<!-- inject:templates:js --><!-- endinject -->
 <!-- endbuild -->
 
 <!-- build:remove -->

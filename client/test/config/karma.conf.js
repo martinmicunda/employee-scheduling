@@ -3,29 +3,24 @@
 module.exports = function (config) {
     config.set({
         // base path, that will be used to resolve files and exclude
-        basePath: '../..',
+        basePath: '../../',
 
         frameworks: ['jasmine'],
 
         // list of files / patterns to load in the browser
         files: [
             // libraries
-            'public/lib/jquery/dist/jquery.js',
-            'public/lib/angular/angular.js',
-            'public/lib/angular-mocks/angular-mocks.js',
-            'public/lib/angular-cookies/angular-cookies.js',
-            'public/lib/bootstrap/dist/js/bootstrap.js',
-            'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-            'public/lib/lodash/dist/lodash.compat.js',
-            'public/lib/restangular/dist/restangular.js',
-            'public/lib/angular-ui-router/release/angular-ui-router.js',
+            'src/vendor/jquery/dist/jquery.js',
+            'src/vendor/angular/angular.js',
+            'src/vendor/angular-mocks/angular-mocks.js',
+            'src/vendor/bootstrap/dist/js/bootstrap.js',
 
             // our app
-            'public/app/**/*-module.js',
-            'public/app/**/!(*_test).js',
+            'src/app/**/*-module.js',
+            'src/app/**/!(*_test).js',
 
             // tests
-            'public/app/**/*_test.js',
+            'src/app/**/*_test.js',
 
             // templates
 //            'public/app/**/*.html'
@@ -42,7 +37,7 @@ module.exports = function (config) {
 
         junitReporter: {
             // will be resolved to basePath (in the same way as files/exclude patterns)
-            outputFile: 'test/reports/unit-test-reports.xml',
+            outputFile: '../build/test-reports/unit-test-report.xml',
             suite: 'unit'
         },
 
@@ -68,7 +63,7 @@ module.exports = function (config) {
         // optionally, configure the reporter
         coverageReporter: {
             type: 'html',
-            dir: 'test/reports/coverage/'
+            dir: '../build/test-reports/coverage/'
         },
 
         // web server port
@@ -97,8 +92,8 @@ module.exports = function (config) {
         // - PhantomJS
         // - IE (only Windows)
         // CLI --browsers Chrome,Firefox,Safari
-//        browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome'],
-        browsers: ['Chrome', 'Safari', 'Firefox'],
+        browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome'],
+//        browsers: ['Chrome', 'Safari', 'Firefox', 'PhantomJS'],
 
         // If browser does not capture in given timeout [ms], kill it
         // CLI --capture-timeout 5000

@@ -25,8 +25,10 @@ before_script:
 #  - sleep 3 # give server some time to start
   - gulp build
 
+# run unit and e2e tests
 script:
   - gulp test-unit
 
+# publish build to gh-pages branch
 after_script:
   - gulp gh-pages

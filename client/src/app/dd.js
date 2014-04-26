@@ -2,7 +2,7 @@
 
 // load angular app after the Google Maps API
 function onGoogleReady() {
-    console.log("Google maps api initialized.");
+    console.log("Google maps api initialized.rr");
     angular.bootstrap(document.getElementById("map"), ['doc.ui-map']);
 }
 

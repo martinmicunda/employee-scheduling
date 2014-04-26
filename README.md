@@ -1,4 +1,5 @@
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/martinmicunda/employee-scheduling/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Build Status](https://secure.travis-ci.org/martinmicunda/employee-scheduling.png)](http://travis-ci.org/martinmicunda/employee-scheduling) [![Dependency Status](https://david-dm.org/martinmicunda/employee-scheduling.png)](https://david-dm.org/martinmicunda/employee-scheduling) [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling/dev-status.png)](https://david-dm.org/martinmicunda/employee-scheduling#info=devDependencies) 
+
 
 Employee Scheduling
 ===================
@@ -59,7 +60,7 @@ MEAN (Mongo, Express, Angular, Node) - An employee scheduling application.
       unit/               --> unit test files
         client/             --> client unit tests
         server/             --> server unit tests
-    package.json        --> for npm    
+    package.json        --> for npm  d  
 
 ## Versioning
 

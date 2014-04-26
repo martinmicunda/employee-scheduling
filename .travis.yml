@@ -17,6 +17,8 @@ env:
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+  - git config --global user.email "martinmicunda@hotmail.com"
+  - git config --global user.name "Travis-CI"
 
 # install dependencies necessary to run this build
 install:

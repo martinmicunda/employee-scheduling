@@ -21,7 +21,6 @@ before_install:
 
 # install dependencies necessary to run this build
 install:
-#  - npm install -g gulp@3.6.x karma@0.12.x protractor@0.21.x
   - npm install --quiet
 
 # configure Travis CI

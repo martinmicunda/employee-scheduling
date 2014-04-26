@@ -462,8 +462,8 @@ gulp.task('build', 'Build application for deployment', function (cb) {
 });
 
 gulp.task('staging', 'Build application for deployment', function (cb) {
-    runSequence(['clean', 'bower-install', 'config-prod'],
-        ['compile', 'copy'],
+    runSequence(['build'],
+        ['test'],
         cb);
 });
 

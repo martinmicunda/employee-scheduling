@@ -21,14 +21,14 @@ before_install:
 # install dependencies necessary to run this build
 install:
 #  - npm install -g gulp@3.5.x karma@0.12.x protractor@0.21.x
-  - npm install --quiet
+#  - npm install --quiet
 
 # configure Travis CI
 before_script:
 #  - node server/src/server.js &
 #  - sleep 3 # give server some time to start
-  - gulp build
-
+#  - gulp build
+#
 # run unit and e2e tests
 script:
   - gulp test-unit

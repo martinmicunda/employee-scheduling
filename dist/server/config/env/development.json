@@ -1,0 +1,6 @@
+{
+    "express": {
+        "port": 3000
+    },
+    "publicPath": "/../../../client/src/"
+}

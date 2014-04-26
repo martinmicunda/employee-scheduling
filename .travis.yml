@@ -22,7 +22,7 @@ before_install:
 # install dependencies necessary to run this build
 install:
 #  - npm install -g gulp@3.6.x karma@0.12.x protractor@0.21.x
-#  - npm install --quiet
+  - npm install --quiet
 
 # configure Travis CI
 before_script:
@@ -36,4 +36,6 @@ script:
 
 # publish build to gh-pages branch
 after_script:
+  - git config --global user.email "martinmicunda@hotmail.com"
+  - git config --global user.name "Travis-CI"
   - gulp gh-pages

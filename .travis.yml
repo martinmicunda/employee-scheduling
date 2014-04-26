@@ -21,8 +21,7 @@ install:
 
 # configure Travis CI
 before_script:
-  - cd server/src/
-  - node server.js &
+  - node server/src/server.js &
   - sleep 3 # give server some time to start
 
 script:

@@ -37,6 +37,7 @@ var header               = require('gulp-header');
 var uglify               = require('gulp-uglify');
 var usemin               = require('gulp-usemin');
 var csslint              = require('gulp-csslint');
+var ghPages              = require("gulp-gh-pages");
 var refresh              = require('gulp-livereload');
 var cdnizer              = require("gulp-cdnizer");
 var htmlhint             = require("gulp-htmlhint");
@@ -58,10 +59,11 @@ var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
 /**
  * Declare constants that are use in gulpfile.js or angular app
  */
-var CDN_BASE            =  'http://d28jyvyqhe6y3z.cloudfront.net';
-var MODULE_NAME         =  'ojng';
-var API_VERSION         =  '1.0';
-var LIVERELOAD_PORT     =  35729;
+var CDN_BASE            = 'http://d28jyvyqhe6y3z.cloudfront.net';
+var MODULE_NAME         = 'ojng';
+var API_VERSION         = '1.0';
+var GIT_REMOTE_URL      = 'git@github.com:martinmicunda/employee-scheduling';
+var LIVERELOAD_PORT     = 35729;
 var TEMPLATE_BASE_PATH  = 'templates';
 
 
@@ -413,6 +415,10 @@ gulp.task('test-e2e', 'Does the same as \'webdriver_update\' task but also run e
     });
 });
 
+gulp.task('gh-pages', function () {
+    gulp.src(paths.build.dist + '**/*')
+        .pipe(ghPages(GIT_REMOTE_URL));
+});
 
 //=============================================
 //                MAIN TASKS

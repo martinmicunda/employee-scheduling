@@ -81,6 +81,7 @@
         "gulp-help": "^0.1.0",
         "gulp-cdnizer": "^0.2.4",
         "gulp-inject": "^0.4.1",
+        "gulp-gh-pages": "^0.1.4",
         "gulp-angular-templatecache": "^1.1.1",
         "gulp-protractor": "^0.0.7",
         "protractor": "^0.21.0",

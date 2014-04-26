@@ -62,7 +62,7 @@ var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
 var CDN_BASE            = 'http://d28jyvyqhe6y3z.cloudfront.net';
 var MODULE_NAME         = 'ojng';
 var API_VERSION         = '1.0';
-var GIT_REMOTE_URL      = 'git@github.com:martinmicunda/employee-scheduling';
+var GIT_REMOTE_URL      = 'git@github.com:martinmicunda/employee-scheduling.git';
 var LIVERELOAD_PORT     = 35729;
 var TEMPLATE_BASE_PATH  = 'templates';
 
@@ -415,8 +415,8 @@ gulp.task('test-e2e', 'Does the same as \'webdriver_update\' task but also run e
     });
 });
 
-gulp.task('gh-pages', function () {
-    gulp.src(paths.build.dist + '**/*')
+gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', function () {
+    gulp.src(paths.build.basePath + '**/*')
         .pipe(ghPages(GIT_REMOTE_URL));
 });
 

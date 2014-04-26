@@ -25,4 +25,6 @@ before_script:
   - sleep 3 # give server some time to start
 
 script:
+  - gulp build
   - gulp test-unit
+  - gulp gh-pages

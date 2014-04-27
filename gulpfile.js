@@ -72,12 +72,6 @@ var TEMPLATE_BASE_PATH  = 'templates';
 //=============================================
 
 var paths = {
-
-    config: {
-        file:           'client/src/app/config/config-env.json',
-        template:       'client/src/app/config/config.tpl.ejs',
-        app:            'client/src/app/'
-    },
     /**
      * This is a collection of file patterns that refer to our app code (the
      * stuff in `src/`). These file paths are used in the configuration of
@@ -95,9 +89,14 @@ var paths = {
         styles:         'client/src/assets/styles/**/*.css',
         images:         'client/src/assets/images/**/*.{png,gif,jpg,jpeg}',
         fonts:          'client/src/assets/fonts/**/*',
-        scripts:        'client/src/app/**/*.js',
+        scripts:        ['client/src/app/**/*.js', '!client/src/app/config/config-env.js', '!client/src/app/**/*_test.js'],
         html:           'client/src/*.html',
-        templates:      'client/src/app/**/*.html'
+        templates:      'client/src/app/**/*.html',
+        config: {
+            basePath:   'client/src/app/config/',
+            file:       'client/src/app/config/config-env.json',
+            template:   'client/src/app/config/config.tpl.ejs'
+        }
     },
     server:             'server/src/**/*',
     /**
@@ -352,24 +351,24 @@ gulp.task('watch', 'Watch files for changes', function () {
  * Configuration Angular app for development environment.
  */
 gulp.task('config-dev', 'Configuration Angular app for development environment (pass env constants to angular app)', function () {
-    return gulp.src(paths.config.file)
+    return gulp.src(paths.client.config.file)
         .pipe(ngConstant({
-            templatePath: paths.config.template,
+            templatePath: paths.client.config.template,
             constants: { ENV: {'name': 'development', 'apiVersion': API_VERSION, templateBasePath: 'app/'} }
         }))
-        .pipe(gulp.dest(paths.config.app));
+        .pipe(gulp.dest(paths.client.config.basePath));
 });
 
 /**
  * Configuration Angular app for production environment.
  */
 gulp.task('config-prod', 'Configuration Angular app for production environment (pass env constants to angular app)', function () {
-    return gulp.src(paths.config.file)
+    return gulp.src(paths.client.config.file)
         .pipe(ngConstant({
-            templatePath: paths.config.template,
+            templatePath: paths.client.config.template,
             constants: { ENV: {'name': 'production', 'apiVersion': API_VERSION, templateBasePath: TEMPLATE_BASE_PATH + '/', 'cdnBaseUrl': CDN_BASE} }
         }))
-        .pipe(gulp.dest(paths.config.app));
+        .pipe(gulp.dest(paths.client.config.basePath));
 });
 
 /**

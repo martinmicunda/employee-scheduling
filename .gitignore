@@ -27,4 +27,4 @@ build/
 .tmp/
 
 # ignore angular env file
-client/src/app/config-env.js
+client/src/app/config/config-env.js

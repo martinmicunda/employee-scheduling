@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="Firefox 19.0.0 (Linux)" package="unit" timestamp="2014-04-30T10:14:17" id="0" hostname="testing-worker-linux-9-1-20172-linux-8-24089925" tests="2" errors="0" failures="0" time="0.012">
+  <testsuite name="Firefox 19.0.0 (Linux)" package="unit" timestamp="2014-04-30T13:16:48" id="0" hostname="testing-worker-linux-9-2-20226-linux-18-24100913" tests="2" errors="0" failures="0" time="0.015">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0"/>
     </properties>
-    <testcase name="should be true...." time="0.006" classname="unit Firefox 19.0.0 (Linux).filter checkmark"/>
-    <testcase name="should be false...." time="0.006" classname="unit Firefox 19.0.0 (Linux).filter checkmark"/>
+    <testcase name="should be true...." time="0.008" classname="unit Firefox 19.0.0 (Linux).filter checkmark"/>
+    <testcase name="should be false...." time="0.007" classname="unit Firefox 19.0.0 (Linux).filter checkmark"/>
     <system-out><![CDATA[
 ]]></system-out>
     <system-err/>

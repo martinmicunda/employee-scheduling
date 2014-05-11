@@ -26,6 +26,7 @@ MEAN (Mongo, Express, Angular, Node) - An employee scheduling application.
     * [Grunt](http://gruntjs.com/)
     * [Bower](http://bower.io/)
     * [Travis CI](https://travis-ci.org/)
+    * [Docker](https://www.docker.io/)
 
 * **Test:**
     * [Jasmine](http://pivotal.github.io/jasmine/)

@@ -13,6 +13,7 @@ MEAN (Mongo, Express, Angular, Node) - An employee scheduling application.
     * [HTML5](http://www.w3.org/TR/2011/WD-html5-20110525/)
     * [CSS3](http://www.w3.org/TR/2001/WD-css3-roadmap-20010523/)
     * [Bootstrap 3](http://getbootstrap.com/)
+    * [Nginx](http://nginx.org/)
 
 * **Server Side:**
     * [NodeJS](http://nodejs.org/)

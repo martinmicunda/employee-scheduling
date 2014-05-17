@@ -8,13 +8,20 @@
         "email": "martinmicunda@hotmail.com",
         "url": "http://martinm.net"
     },
+    "main": "server/src/server.js",
     "homepage": "http://employee-scheduling.herokuapp.com",
     "scripts": {
-        "start": "node app.js",
-        "test": "TODO: add test command",
-        "deploy": "TODO: add deploy command"
+        "jshint": "gulp jshint",
+        "htmlhint": "gulp htmlhint",
+        "test": "gulp test:unit",
+        "dep-check": "david"
     },
-    "main": "server/src/server.js",
+    "pre-commit": [
+        "jshint",
+        "htmlhint",
+        "test",
+        "dep-check"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/martinmicunda/employee-scheduling"
@@ -86,7 +93,9 @@
         "run-sequence": "^0.3.6",
         "jasmine-reporters": "^0.4.0",
         "jshint-stylish": "^0.1.5",
-        "minimist": "^0.1.0"
+        "minimist": "^0.1.0",
+        "you-shall-not-commit": "^0.0.1",
+        "david": "^3.1.0"
     },
     "licenses": [
         {

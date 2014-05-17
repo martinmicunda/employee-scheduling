@@ -1,3 +1,11 @@
+var argvIndex;
+process.argv.forEach(function (val, index, array) {
+    if(val == '--env') {
+        argvIndex = index;
+    }
+});
+var isProduction = process.argv[argvIndex + 1] === 'production' ? true : false;
+
 exports.config = {
     // The address of a running selenium server.
     seleniumServerJar: '../../../node_modules/protractor/selenium/selenium-server-standalone-2.40.0.jar',
@@ -14,26 +22,26 @@ exports.config = {
 
     // A base URL for your application under test. Calls to protractor.get()
     // with relative paths will be prepended with this.
-    baseUrl: 'http://127.0.0.1:3000',
+//    baseUrl: 'http://127.0.0.1:3000',
 
-    multiCapabilities: [
+//    multiCapabilities: [
+////        {
+////            'browserName': 'chrome'
+////        },
+////        {
+////            'browserName': 'safari'
+////        },
 //        {
-//            'browserName': 'chrome'
+//            'browserName': 'firefox'
 //        },
-//        {
-//            'browserName': 'safari'
-//        },
-        {
-            'browserName': 'firefox'
-        },
-        // TODO: (martin) There is issue with phantomJS in Protractor https://github.com/angular/protractor/issues/557
-//        {
-//
-//            'browserName': 'phantomjs'
-//            'phantomjs.binary.path': './node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
-//            'phantomjs.cli.args': ['--debug=true', '--webdriver-logfile=webdriver.log', '--webdriver-loglevel=DEBUG']
-//        }
-    ],
+//        // TODO: (martin) There is issue with phantomJS in Protractor https://github.com/angular/protractor/issues/557
+////        {
+////
+////            'browserName': 'phantomjs'
+////            'phantomjs.binary.path': './node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
+////            'phantomjs.cli.args': ['--debug=true', '--webdriver-logfile=webdriver.log', '--webdriver-loglevel=DEBUG']
+////        }
+//    ],
 
     /**
      * A callback function called once protractor is ready and available,
@@ -43,23 +51,27 @@ exports.config = {
      * the filename string.
      */
     onPrepare: function() {
-        // At this point, global 'protractor' object will be set up, and
-        // jasmine will be available.
-        //
-        // Launch the Express server we will run tests against.
-//        exports.server = require('./server/expressApp');
+        // browser.driver.manage().window().setSize(1024,768);
 
-        // The require statement must be down here, since jasmine-reporters
-        // needs jasmine to be in the global and protractor does not guarantee
-        // this until inside the onPrepare function.
+        // Launch the Express server we will run tests against.
+        exports.server = require('../../../server/src/server.js');
+
+        /**
+         * At this point, global 'protractor' object will be set up, and
+         * jasmine will be available.
+         *
+         * The require statement must be down here, since jasmine-reporters
+         * needs jasmine to be in the global and protractor does not guarantee
+         * this until inside the onPrepare function.
+         */
         require('jasmine-reporters');
-        jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter(null, true, true, '../build/test-reports/e2e-test-report'));
+        jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter(null, true, true, './build/test-reports/client/e2e-test-report'));
 
         var ScreenShotReporter = require('protractor-screenshot-reporter');
         var path = require('path');
         // Add a screenshot reporter and store screenshots to `/tmp/screnshots`:
         jasmine.getEnv().addReporter(new ScreenShotReporter({
-            baseDirectory: '../build/test-reports/screenshots',
+            baseDirectory: './build/test-reports/client/screenshots',
             pathBuilder: function pathBuilder(spec, descriptions, results, capabilities) {
                 // Return '<browser>/<specname>' as path for screenshots:
                 // Example: 'firefox/list-should work'.
@@ -77,7 +89,7 @@ exports.config = {
          */
         onComplete: function () {
             // Shut down the test Express server.
-//            exports.server.close();
+            exports.server.close();
         },
         // If true, display spec names.
         isVerbose: true,

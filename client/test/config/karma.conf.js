@@ -1,30 +1,71 @@
 "use strict";
 
 module.exports = function (config) {
-    config.set({
-        // base path, that will be used to resolve files and exclude
-        basePath: '../../',
+    var files, preprocessors;
 
-        frameworks: ['jasmine'],
+    // 'env' argument is specify in gulpfile.js. The reason for argv[2] is because the first element is 'node', the second element
+    // is be the name of the JavaScript file. The next elements will be any additional command line arguments.
+    var isProduction = JSON.parse(process.argv[2]).env === 'production' ? true : false;
 
-        // list of files / patterns to load in the browser
-        files: [
+    if(isProduction) {
+        files = [
             // libraries
-            'src/vendor/jquery/dist/jquery.js',
-            'src/vendor/angular/angular.js',
-            'src/vendor/angular-mocks/angular-mocks.js',
-            'src/vendor/bootstrap/dist/js/bootstrap.js',
+            'build/dist/scripts/lib.min-*.js',
+
+            // test libraries
+            'client/src/vendor/angular-mocks/angular-mocks.js',
 
             // our app
-            'src/app/**/*-module.js',
-            'src/app/**/!(*_test).js',
+            'build/dist/scripts/app.min-*.js',
 
             // tests
-            'src/app/**/*_test.js',
+            'client/src/app/**/*_test.js'
+        ],
+
+            preprocessors = {
+                // source files, that you wanna generate coverage for - do not include tests or libraries
+                // (these files will be instrumented by Istanbul)
+                '**/build/dist/scripts/app.min-*.js': 'coverage'
+            }
+    } else {
+        files = [
+            // libraries
+            'client/src/vendor/jquery/dist/jquery.js',
+            'client/src/vendor/angular/angular.js',
+            'client/src/vendor/bootstrap/dist/js/bootstrap.js',
+
+            // test libraries
+            'client/src/vendor/angular-mocks/angular-mocks.js',
+
+            // our app
+            'client/src/app/**/*-module.js',
+            'client/src/app/**/!(*_test).js',
+
+            // tests
+            'client/src/app/**/*_test.js',
 
             // templates
 //            'public/app/**/*.html'
         ],
+
+            preprocessors = {
+                // source files, that you wanna generate coverage for - do not include tests or libraries
+                // (these files will be instrumented by Istanbul)
+                '**/client/src/app/**/!(*_test).js': 'coverage'
+                // TODO: (martin) this might be good for testing templates
+                // generate js files from html templates
+                // '**/src/app/**/*.html': ['ng-html2js']
+            }
+    }
+
+    config.set({
+        // base path, that will be used to resolve files and exclude
+        basePath: '../../../',
+
+        frameworks: ['jasmine'],
+
+        // list of files / patterns to load in the browser
+        files: files,
 
         // list of files to exclude
         exclude: [
@@ -37,18 +78,11 @@ module.exports = function (config) {
 
         junitReporter: {
             // will be resolved to basePath (in the same way as files/exclude patterns)
-            outputFile: '../build/test-reports/unit-test-report.xml',
+            outputFile: 'build/test-reports/client/unit-test-report.xml',
             suite: 'unit'
         },
 
-        preprocessors: {
-            // source files, that you wanna generate coverage for - do not include tests or libraries
-            // (these files will be instrumented by Istanbul)
-            '**/public/app/**/!(*_test).js': 'coverage'
-
-            // generate js files from html templates
-//            '**/public/app/**/*.html': ['ng-html2js']
-        },
+        preprocessors: preprocessors,
 
         ngHtml2JsPreprocessor: {
             // strip this from the file path
@@ -62,8 +96,11 @@ module.exports = function (config) {
 
         // optionally, configure the reporter
         coverageReporter: {
-            type: 'html',
-            dir: '../build/test-reports/coverage/'
+            reporters: [
+                {type: 'html', dir: 'build/test-reports/client/coverage/'}, // will generate html report
+                {type: 'json', dir: 'build/test-reports/client/coverage/'}, // will generate json report file and this report is loaded to make sure failed coverage cause gulp to exit non-zero
+                {type: 'text-summary', dir: 'build/test-reports/client/coverage/'} // it does not generate any file but it will print coverage to console
+            ]
         },
 
         // web server port

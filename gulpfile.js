@@ -685,7 +685,7 @@ gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint'
         return process.exit(1);
     }
 
-    return gulp.src(['package.json', 'bower.json'])
+    return gulp.src(['build/dist/package.json', 'bower.json'])
         .pipe(bump({type: argv.type}))
         .pipe(gulp.dest('./'));
 });

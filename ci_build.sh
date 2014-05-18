@@ -92,7 +92,7 @@ function run {
         echo "-- Build version is $NEW_VERSION"
 
         # Load version to make sure package.json was updated correctly
-        VERSION=$(readJsonProp "package.json" "version")
+        VERSION=$(readJsonProp "build/dist/package.json" "version")
 
         if [[ "$NEW_VERSION" != "$VERSION" ]]; then
             echo "-- The package.json was not updated correctly. The package.json version should be $NEW_VERSION but is $VERSION! Aborting build."

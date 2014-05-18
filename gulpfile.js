@@ -557,7 +557,6 @@ gulp.task('check', 'Check if there are any changes to commit', function (cb) {
  * Publish 'build' folder to GitHub 'gh-pages' branch.
  */
 gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', function () {
-    console.log('no process' + GIT_REMOTE_URL);
     gulp.src(paths.build.basePath + '**/*')
         .pipe(ghPages(GIT_REMOTE_URL));
 });
@@ -688,12 +687,10 @@ gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint'
     }
 
     if(process.env.TRAVIS === 'true') {
-        console.log('process' + process.env.TRAVIS);
         return gulp.src(['build/dist/package.json'])
             .pipe(bump({type: argv.type}))
             .pipe(gulp.dest('./build/dist/'));
     } else {
-        console.log('no process' + process.env.TRAVIS);
         return gulp.src(['package.json', 'bower.json'])
             .pipe(bump({type: argv.type}))
             .pipe(gulp.dest('./'));

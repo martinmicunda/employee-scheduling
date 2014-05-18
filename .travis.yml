@@ -11,6 +11,7 @@ notifications:
 
 env:
   global:
+    - TRAVIS=true
     #  travis-encrypt -r martinmicunda/employee-scheduling -k GH_TOKEN -v <https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.globa
     - secure: 'O8EunBCVEttAgCbs9eRKDfANt5WY1zdoSnx2nCrh6SQz3up1vIIwh4QXz6H/JwnlmsN6/xIgZnO9DJWqDboCWpfFpze6kJ8KuViE0MxSAcnM5/1iXxXQoXZPo/QQ5vt0j4o/m6L1bhy7PQIwbSJH08OhXcVQtH/cHKO2m8zQBi8='
 
@@ -26,4 +27,4 @@ install:
 
 # run unit and e2e tests
 script:
-  - chmod -x ./ci_build.sh
+  - bash -ex ./ci_build.sh

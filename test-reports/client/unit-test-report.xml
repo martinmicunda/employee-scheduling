@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <testsuites>
-  <testsuite name="PhantomJS 1.9.7 (Linux)" package="unit" timestamp="2014-05-18T21:00:03" id="0" hostname="testing-worker-linux-6-1-30204-linux-20-25471640" tests="2" errors="0" failures="0" time="0.009">
+  <testsuite name="PhantomJS 1.9.7 (Linux)" package="unit" timestamp="2014-05-18T21:44:30" id="0" hostname="testing-worker-linux-8-2-23009-linux-12-25473898" tests="2" errors="0" failures="0" time="0.008">
     <properties>
       <property name="browser.fullName" value="Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.7 Safari/534.34"/>
     </properties>
-    <testcase name="should be true...." time="0.008" classname="unit PhantomJS 1.9.7 (Linux).filter checkmark"/>
+    <testcase name="should be true...." time="0.007" classname="unit PhantomJS 1.9.7 (Linux).filter checkmark"/>
     <testcase name="should be false...." time="0.001" classname="unit PhantomJS 1.9.7 (Linux).filter checkmark"/>
     <system-out><![CDATA[
 ]]></system-out>

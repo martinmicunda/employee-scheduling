@@ -49,6 +49,7 @@ function run {
 
     echo "-- Running unit tests "
     gulp test:unit
+    gulp test:e2e
 
     if [[ "$PULL_REQUEST" != "false" ]]; then
         echo "-- This is a pull request build; will not push build out."

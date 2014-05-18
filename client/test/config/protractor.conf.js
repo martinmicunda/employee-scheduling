@@ -8,7 +8,7 @@ var isProduction = process.argv[argvIndex + 1] === 'production' ? true : false;
 
 exports.config = {
     // The address of a running selenium server.
-    seleniumServerJar: '../../../node_modules/protractor/selenium/selenium-server-standalone-2.40.0.jar',
+    seleniumServerJar: '../../../node_modules/protractor/selenium/selenium-server-standalone-2.41.0.jar',
     seleniumArgs: ['-browserTimeout=60'],
 //    seleniumPort: 4444,
 //    seleniumAddress: 'http://localhost:4444/wd/hub',

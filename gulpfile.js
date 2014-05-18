@@ -625,10 +625,10 @@ gulp.task('test:unit', 'Run unit tests', function () {
 gulp.task('test:e2e', 'Run e2e tests', ['webdriver_update'], function () {
     //TODO: (martin) remove this code once the issue with PhantomJS is resolved. This code is already declared at the top of this file.
     var BROWSERS = !!argv.browsers ? argv.browsers : 'chrome';
-    if(!BROWSERS.match(new RegExp(/phantomjs|chrome|firefox|safari/))) {
-        gutil.log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS +'\'! Usage: gulp test:unit --env=(phantomjs|chrome|firefox|safari)'));
-        return process.exit(1);
-    }
+//    if(!BROWSERS.match(new RegExp(/phantomjs|chrome|firefox|safari/))) {
+//        gutil.log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS +'\'! Usage: gulp test:unit --env=(phantomjs|chrome|firefox|safari)'));
+//        return process.exit(1);
+//    }
 
     //TODO: (martin) might also use this plugin https://www.npmjs.org/package/gulp-protractor-qa
     gulp.src('./idontexist')

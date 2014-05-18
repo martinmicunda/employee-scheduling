@@ -26,4 +26,4 @@ install:
 
 # run unit and e2e tests
 script:
-  - chmod +x ./ci_build.sh 2>&1
+  - chmod -x ./ci_build.sh

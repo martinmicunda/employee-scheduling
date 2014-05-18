@@ -78,7 +78,7 @@ function run {
         echo "# Complete! Release v$VERSION published! #"
         echo "##########################################"
     else
-        if [[ "$BRANCH" != "origin/master" ]]; then
+        if [[ "$BRANCH" != "master" ]]; then
             echo "-- We are not on branch master, instead we are on branch $BRANCH. Aborting build."
             exit 0
         fi

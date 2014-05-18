@@ -22,20 +22,8 @@ before_install:
 # install dependencies necessary to run this build
 install:
   - npm install --quiet
-
-# configure Travis CI
-before_script:
-#  - node server/src/server.js &
-#  - sleep 3 # give server some time to start
-  - gulp build --notest --nocdn
+  - npm install -g gulp webdriver_update
 
 # run unit and e2e tests
 script:
-  - gulp test:unit
-  - gulp test:e2e
-
-# publish build to gh-pages branch
-after_script:
-  - git config --global user.email "martinmicunda@hotmail.com"
-  - git config --global user.name "Travis-CI"
-  - gulp gh-pages
+  - ./ci_build.sh

@@ -88,6 +88,7 @@
     "karma-junit-reporter": "^0.2.1",
     "karma-jasmine": "^0.2.2",
     "karma-coverage": "^0.2.1",
+    "karma-coveralls": "^0.1.4",
     "karma-ng-html2js-preprocessor": "^0.1.0",
     "run-sequence": "^0.3.6",
     "jasmine-reporters": "^0.4.0",

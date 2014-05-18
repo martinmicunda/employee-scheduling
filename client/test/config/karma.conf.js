@@ -74,7 +74,7 @@ module.exports = function (config) {
         // use dots reporter, as travis terminal does not support escaping sequences
         // possible values: 'dots', 'progress', 'junit'
         // CLI --reporters progress
-        reporters: ['dots', 'junit', 'coverage'],
+        reporters: ['dots', 'junit', 'coverage', 'karma-coveralls'],
 
         junitReporter: {
             // will be resolved to basePath (in the same way as files/exclude patterns)
@@ -98,7 +98,7 @@ module.exports = function (config) {
         coverageReporter: {
             reporters: [
                 {type: 'html', dir: 'build/test-reports/client/coverage/'}, // will generate html report
-                {type: 'json', dir: 'build/test-reports/client/coverage/'}, // will generate json report file and this report is loaded to make sure failed coverage cause gulp to exit non-zero
+                {type: 'lcov', dir: 'build/test-reports/client/coverage/'}, // will generate json report file and this report is loaded to make sure failed coverage cause gulp to exit non-zero
                 {type: 'text-summary', dir: 'build/test-reports/client/coverage/'} // it does not generate any file but it will print coverage to console
             ]
         },
@@ -152,6 +152,7 @@ module.exports = function (config) {
             'karma-phantomjs-launcher',
             'karma-junit-reporter',
             'karma-coverage',
+            'karma-coveralls',
             'karma-ng-html2js-preprocessor'
         ]
     });

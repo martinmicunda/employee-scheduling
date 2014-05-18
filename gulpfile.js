@@ -196,7 +196,7 @@ var paths = {
         },
         testReports: {
             client: {
-                coverage: 'build/client/test-reports/coverage/'
+                coverage: 'build/test-reports/client/coverage/'
             },
             server: {
                 coverage: ''

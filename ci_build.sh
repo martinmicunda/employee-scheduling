@@ -72,7 +72,7 @@ function run {
         git push origin $TAG_NAME
 
         # Publish to GitHub gs-pages branch
-        gulp gh-pages
+#        gulp gh-pages
 
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"
@@ -100,7 +100,7 @@ function run {
         fi
 
         # Publish to GitHub gs-pages branch
-        gulp gh-pages
+#        gulp gh-pages
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"

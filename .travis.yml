@@ -27,3 +27,7 @@ install:
 # run unit and e2e tests
 script:
   - bash -ex ./ci_build.sh
+
+# publish to GitHub gs-pages branch
+after_success:
+  - gulp gh-pages

@@ -557,6 +557,7 @@ gulp.task('check', 'Check if there are any changes to commit', function (cb) {
  * Publish 'build' folder to GitHub 'gh-pages' branch.
  */
 gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', function () {
+    console.log('no process' + process.env.TRAVIS);
     gulp.src(paths.build.basePath + '**/*')
         .pipe(ghPages(GIT_REMOTE_URL));
 });

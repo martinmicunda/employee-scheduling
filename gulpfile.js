@@ -11,6 +11,7 @@
 var argv        = require('minimist')(process.argv.slice(2));
 var gulp        = require('gulp');
 var server      = require('tiny-lr')();
+var semver      = require('semver');
 var wiredep     = require('wiredep').stream;
 var runSequence = require('run-sequence');
 
@@ -685,9 +686,15 @@ gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint'
         return process.exit(1);
     }
 
-    return gulp.src(['build/dist/package.json', 'bower.json'])
-        .pipe(bump({type: argv.type}))
-        .pipe(gulp.dest('./'));
+    if(process.env.TRAVIS === 'true') {
+        return gulp.src(['build/dist/package.json'])
+            .pipe(bump({type: argv.type}))
+            .pipe(gulp.dest('./'));
+    } else {
+        return gulp.src(['package.json', 'bower.json'])
+            .pipe(bump({type: argv.type}))
+            .pipe(gulp.dest('./'));
+    }
 });
 
 /**

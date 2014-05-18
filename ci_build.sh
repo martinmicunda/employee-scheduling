@@ -88,7 +88,7 @@ function run {
         echo "######################################"
 
         NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
-        replaceJsonProp "package.json" "version" "$NEW_VERSION"
+        replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
 
         # Load version to make sure package.json was updated correctly

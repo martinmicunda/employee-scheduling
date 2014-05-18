@@ -1,35 +1,35 @@
 {
-    "name": "employee-scheduling",
-    "version": "0.1.0",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "index.html",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests",
-        "*.json",
-        "*.md",
-        "*.map",
-        "*.yml",
-        "_*",
-        "docs-assets",
-        "examples",
-        "/fonts",
-        "js/tests",
-        "CNAME",
-        "CONTRIBUTING.md",
-        "composer.json",
-        "*.html"
-    ],
-    "dependencies": {
-        "angular": "1.2.3",
-        "angular-route": "1.2.3",
-        "bootstrap": "3.0.2"
-    },
-    "devDependencies": {
-        "angular-mocks": "1.2.3",
-        "jasmine": "2.0.0"
-    }
+  "name": "employee-scheduling",
+  "version": "0.0.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "index.html",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "*.json",
+    "*.md",
+    "*.map",
+    "*.yml",
+    "_*",
+    "docs-assets",
+    "examples",
+    "/fonts",
+    "js/tests",
+    "CNAME",
+    "CONTRIBUTING.md",
+    "composer.json",
+    "*.html"
+  ],
+  "dependencies": {
+    "angular": "1.2.3",
+    "angular-route": "1.2.3",
+    "bootstrap": "3.0.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.3",
+    "jasmine": "2.0.0"
+  }
 }

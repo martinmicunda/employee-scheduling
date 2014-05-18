@@ -687,10 +687,12 @@ gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint'
     }
 
     if(process.env.TRAVIS === 'true') {
+        console.log('process' + process.env.TRAVIS);
         return gulp.src(['build/dist/package.json'])
             .pipe(bump({type: argv.type}))
             .pipe(gulp.dest('./build/dist/'));
     } else {
+        console.log('no process' + process.env.TRAVIS);
         return gulp.src(['package.json', 'bower.json'])
             .pipe(bump({type: argv.type}))
             .pipe(gulp.dest('./'));

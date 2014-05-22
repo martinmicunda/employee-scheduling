@@ -48,7 +48,6 @@ function run {
     git commit -a -m "Remove old artifacts"
     git push -f origin gh-pages
     cd ../
-    rm -rf gh-pages
 
     # Install NPM packages
     npm install
@@ -69,20 +68,25 @@ function run {
     git show $COMMIT~1:package.json > .tmp/package.old.json
     OLD_VERSION=$(readJsonProp ".tmp/package.old.json" "version")
     VERSION=$(readJsonProp "package.json" "version")
+    TAG_NAME="v$VERSION"
 
     if [[ "$OLD_VERSION" != "$VERSION" ]]; then
         echo "#########################"
         echo "# Releasing v$VERSION! #"
         echo "#########################"
 
-        TAG_NAME="v$VERSION"
+        # Create and push the tag to master github branch
         git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
-
-        # Push the tag to github
         git push origin $TAG_NAME
 
         # Publish to GitHub gs-pages branch
         gulp gh-pages
+
+        # Create and push the tag to gh-pages github branch
+        cd gh-pages
+        git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
+        git push origin $TAG_NAME
+        cd ../
 
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"
@@ -111,6 +115,15 @@ function run {
 
         # Publish to GitHub gs-pages branch
         gulp gh-pages
+
+        # Create and push the tag to gh-pages github branch
+        cd gh-pages
+        git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
+        git push origin $TAG_NAME
+        cd ../
+
+        # Remove gh-pages folder
+        rm -rf gh-pages
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"

@@ -2,5 +2,5 @@
     "express": {
         "port": 5000
     },
-    "publicPath": "/../../client/src/"
+    "publicPath": "/../../client/"
 }

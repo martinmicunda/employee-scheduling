@@ -1,7 +1,7 @@
 {
   "name": "employee-scheduling",
   "description": "MEAN (Mongo, Express, Angular, Node) - An employee scheduling application",
-    "version": "0.0.0-build.53",
+    "version": "0.0.0-build.54",
   "private": true,
   "author": {
     "name": "Martin Micunda",

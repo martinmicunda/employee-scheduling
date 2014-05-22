@@ -74,7 +74,7 @@ module.exports = function (config) {
         // use dots reporter, as travis terminal does not support escaping sequences
         // possible values: 'dots', 'progress', 'junit'
         // CLI --reporters progress
-        reporters: ['dots', 'junit', 'coverage', 'karma-coveralls'],
+        reporters: ['dots', 'junit', 'coverage', 'coveralls'],
 
         junitReporter: {
             // will be resolved to basePath (in the same way as files/exclude patterns)

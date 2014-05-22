@@ -42,13 +42,13 @@ function run {
     echo "COMMIT=$COMMIT"
 
     # Remove old artifacts from gh-pages branch
-#    git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
-#    cd gh-pages
-#    git rm -rf .
-#    git commit -a -m "Remove old artifacts"
-#    git push -f origin gh-pages
-#    cd ../
-#    rm -rf gh-pages
+    git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
+    cd gh-pages
+    git rm -rf .
+    git commit -a -m "Remove old artifacts"
+    git push -f origin gh-pages
+    cd ../
+    rm -rf gh-pages
 
     # Install NPM packages
     npm install

@@ -34,7 +34,6 @@ deploy:
   provider: heroku
   api_key:
     secure: i5m+ZKuyoEf/bXwqTEWnZXM5Ge0mAqreIfDr0pvicSpkVYcWkoe2ynQ5ZmlB5HnEOUW9NIuQNft3j29wt0wIw+axVDTK9XTB0sWP9vvCXYuTstyZ4GhhzlEGNX1fJt5ZyRuwFrIWP/vraLE+tNBLXuB0s8h02zQ5V2kXTezJMJU=
-  app:
-    gh-pages: employee-scheduling
+  app: employee-scheduling
   on:
     repo: martinmicunda/employee-scheduling

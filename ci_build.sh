@@ -41,6 +41,13 @@ function run {
     echo "PULL_REQUEST=$PULL_REQUEST"
     echo "COMMIT=$COMMIT"
 
+    # Remove old artifacts from gh-pages branch
+    git checkout gh-pages
+    git git rm -rf .
+    git commit -a -m "Remove old artifacts"
+    git push -f origin gh-pages
+    git checkout master
+
     # Install NPM packages
     npm install
 

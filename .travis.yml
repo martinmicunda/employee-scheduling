@@ -23,7 +23,7 @@ before_install:
 
 # install dependencies necessary to run this build
 install:
-  - npm install --quiet
+#  - npm install --quiet
   #- npm install -g gulp webdriver_update
 
 # run unit and e2e tests

@@ -43,7 +43,9 @@ function run {
 
     # Remove old artifacts from gh-pages branch
 #    https://'+ process.env.GH_TOKEN +'@github.com/martinmicunda/employee-scheduling.git
-    git clone --depth=50 --branch=gh-pages https://process.env.GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
+    echo $GH_TOKEN
+    echo GH_TOKEN
+    git clone --depth=50 --branch=gh-pages 'https://'+ $GH_TOKEN +'@github.com/martinmicunda/employee-scheduling.git' gh-pages/
     cd gh-pages
     git rm -rf .
     git commit -a -m "Remove old artifacts"

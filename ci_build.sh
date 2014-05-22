@@ -42,81 +42,80 @@ function run {
     echo "COMMIT=$COMMIT"
 
     # Remove old artifacts from gh-pages branch
-#    https://'+ process.env.GH_TOKEN +'@github.com/martinmicunda/employee-scheduling.git
-    git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
-    cd gh-pages
-    git rm -rf .
-    git commit -a -m "Remove old artifacts"
-    git push -f origin gh-pages
-    cd ../
-    rm -rf gh-pages
-#
-#    # Install NPM packages
-#    npm install
-#
-#    echo "-- Build production app code"
-#    gulp build --notest
-#
-#    echo "-- Running unit tests "
-#    gulp test:unit
-#    gulp test:e2e --browsers=Firefox
-#
-#    if [[ "$PULL_REQUEST" != "false" ]]; then
-#        echo "-- This is a pull request build; will not push build out."
-#        exit 0
-#    fi
-#
-#    mkdir -p .tmp
-#    git show $COMMIT~1:package.json > .tmp/package.old.json
-#    OLD_VERSION=$(readJsonProp ".tmp/package.old.json" "version")
-#    VERSION=$(readJsonProp "package.json" "version")
-#
-#    if [[ "$OLD_VERSION" != "$VERSION" ]]; then
-#        echo "#########################"
-#        echo "# Releasing v$VERSION! #"
-#        echo "#########################"
-#
-#        TAG_NAME="v$VERSION"
-#        git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
-#
-#        # Push the tag to github
-#        git push origin $TAG_NAME
-#
-#        # Publish to GitHub gs-pages branch
-#        gulp gh-pages
-#
-#        echo "##########################################"
-#        echo "# Complete! Release v$VERSION published! #"
-#        echo "##########################################"
-#    else
-#        if [[ "$BRANCH" != "master" ]]; then
-#            echo "-- We are not on branch master, instead we are on branch $BRANCH. Aborting build."
-#            exit 0
-#        fi
-#
-#        echo "######################################"
-#        echo "# Pushing out a new prerelease build #"
-#        echo "######################################"
-#
-#        NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
-#        replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
-#        echo "-- Build version is $NEW_VERSION"
-#
-#        # Load version to make sure package.json was updated correctly
-#        VERSION=$(readJsonProp "build/dist/package.json" "version")
-#
-#        if [[ "$NEW_VERSION" != "$VERSION" ]]; then
-#            echo "-- The package.json was not updated correctly. The package.json version should be $NEW_VERSION but is $VERSION! Aborting build."
-#            exit 1
-#        fi
-#
-#        # Publish to GitHub gs-pages branch
-#        gulp gh-pages
-#
-#        echo "#############################################"
-#        echo "# Complete! Prerelease v$VERSION published! #"
-#        echo "#############################################"
-#    fi
+#    git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
+#    cd gh-pages
+#    git rm -rf .
+#    git commit -a -m "Remove old artifacts"
+#    git push -f origin gh-pages
+#    cd ../
+#    rm -rf gh-pages
+
+    # Install NPM packages
+    npm install
+
+    echo "-- Build production app code"
+    gulp build --notest
+
+    echo "-- Running unit tests "
+    gulp test:unit
+    gulp test:e2e --browsers=Firefox
+
+    if [[ "$PULL_REQUEST" != "false" ]]; then
+        echo "-- This is a pull request build; will not push build out."
+        exit 0
+    fi
+
+    mkdir -p .tmp
+    git show $COMMIT~1:package.json > .tmp/package.old.json
+    OLD_VERSION=$(readJsonProp ".tmp/package.old.json" "version")
+    VERSION=$(readJsonProp "package.json" "version")
+
+    if [[ "$OLD_VERSION" != "$VERSION" ]]; then
+        echo "#########################"
+        echo "# Releasing v$VERSION! #"
+        echo "#########################"
+
+        TAG_NAME="v$VERSION"
+        git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
+
+        # Push the tag to github
+        git push origin $TAG_NAME
+
+        # Publish to GitHub gs-pages branch
+        gulp gh-pages
+
+        echo "##########################################"
+        echo "# Complete! Release v$VERSION published! #"
+        echo "##########################################"
+    else
+        if [[ "$BRANCH" != "master" ]]; then
+            echo "-- We are not on branch master, instead we are on branch $BRANCH. Aborting build."
+            exit 0
+        fi
+
+        echo "######################################"
+        echo "# Pushing out a new prerelease build #"
+        echo "######################################"
+
+        NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
+        replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
+        echo "-- Build version is $NEW_VERSION"
+
+        # Load version to make sure package.json was updated correctly
+        VERSION=$(readJsonProp "build/dist/package.json" "version")
+
+        if [[ "$NEW_VERSION" != "$VERSION" ]]; then
+            echo "-- The package.json was not updated correctly. The package.json version should be $NEW_VERSION but is $VERSION! Aborting build."
+            exit 1
+        fi
+
+        # Publish to GitHub gs-pages branch
+        gulp gh-pages
+
+        echo "#############################################"
+        echo "# Complete! Prerelease v$VERSION published! #"
+        echo "#############################################"
+    fi
 
 }
 

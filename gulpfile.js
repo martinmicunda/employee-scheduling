@@ -288,7 +288,7 @@ gulp.task('copy', 'Copy project files that haven\'t been copied by \'compile\' t
         .pipe(gulp.dest(paths.build.dist.client.fonts));
     gulp.src(paths.server)
         .pipe(gulp.dest(paths.build.dist.server.basePath));
-    gulp.src('package.json')
+    gulp.src(['package.json', 'Procfile'])
         .pipe(gulp.dest(paths.build.dist.basePath));
 });
 

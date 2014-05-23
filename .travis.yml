@@ -30,6 +30,7 @@ install:
 script:
   - bash -ex ./ci_build.sh
 
+before_deploy: "echo 'ready?'"
 deploy:
   provider: heroku
   api_key:
@@ -38,3 +39,6 @@ deploy:
     master: employee-scheduling
   on:
     branch: master
+
+after_deploy:
+  - git status

@@ -36,12 +36,10 @@ deploy:
   api_key:
     secure: i5m+ZKuyoEf/bXwqTEWnZXM5Ge0mAqreIfDr0pvicSpkVYcWkoe2ynQ5ZmlB5HnEOUW9NIuQNft3j29wt0wIw+axVDTK9XTB0sWP9vvCXYuTstyZ4GhhzlEGNX1fJt5ZyRuwFrIWP/vraLE+tNBLXuB0s8h02zQ5V2kXTezJMJU=
   run: 
-    - ls -a
+    - "cd dist/"
+    - "npm install"
+    - restart
   app: 
-    master: employee-scheduling
+    gh-pages: employee-scheduling
   on:
-    branch: master
-
-after_deploy:
-  - ls -a
-  - git branch -a
+    branch: gh-pages

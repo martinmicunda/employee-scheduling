@@ -41,15 +41,6 @@ function run {
     echo "PULL_REQUEST=$PULL_REQUEST"
     echo "COMMIT=$COMMIT"
 
-    # Remove old artifacts from gh-pages branch
-    git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
-    cd gh-pages
-    git rm -rf .
-    git commit -a -m "Remove old artifacts and prepering branch for v$VERSION"
-    git push -f origin gh-pages
-    cd ../
-    rm -rf gh-pages
-
     # Install NPM packages
     npm install
 
@@ -69,6 +60,15 @@ function run {
     git show $COMMIT~1:package.json > .tmp/package.old.json
     OLD_VERSION=$(readJsonProp ".tmp/package.old.json" "version")
     VERSION=$(readJsonProp "package.json" "version")
+
+    # Remove old artifacts from gh-pages branch
+    git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
+    cd gh-pages
+    git rm -rf .
+    git commit -a -m "Remove old artifacts and preparing branch for v$VERSION"
+    git push -f origin gh-pages
+    cd ../
+    rm -rf gh-pages
 
     if [[ "$OLD_VERSION" != "$VERSION" ]]; then
         echo "#########################"

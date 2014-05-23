@@ -16,6 +16,11 @@ env:
     # COVERALLS_REPO_TOKEN
     - secure: 'YDGbgsTSvN9evJIRhX22Y+P56VYK50bT1tnQrkMxLRANyyQc6UF/e5iKWm+Yy4/0OWq12o+2tTvBc/MgdwSE+t28E+VmdF/JcQDY2pHb8szQ6PjS1PCkeq3IbYvdsYTSAWOBa9coqXECwkwEdtI6tuGQpXL/MOnq7ZncOetdpF4='
 
+branches:
+  only:
+    - master
+    - gh-pages
+    
 # starts xvfb on display port :99.0 (virtual display for Firefox)
 before_install:
   - "export DISPLAY=:99.0"

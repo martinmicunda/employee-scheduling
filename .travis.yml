@@ -41,4 +41,4 @@ deploy:
     branch: master
 
 after_deploy:
-  - git status
+  - ls -a

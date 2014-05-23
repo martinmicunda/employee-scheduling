@@ -15,11 +15,8 @@ env:
     - secure: 'O8EunBCVEttAgCbs9eRKDfANt5WY1zdoSnx2nCrh6SQz3up1vIIwh4QXz6H/JwnlmsN6/xIgZnO9DJWqDboCWpfFpze6kJ8KuViE0MxSAcnM5/1iXxXQoXZPo/QQ5vt0j4o/m6L1bhy7PQIwbSJH08OhXcVQtH/cHKO2m8zQBi8='
     # COVERALLS_REPO_TOKEN
     - secure: 'YDGbgsTSvN9evJIRhX22Y+P56VYK50bT1tnQrkMxLRANyyQc6UF/e5iKWm+Yy4/0OWq12o+2tTvBc/MgdwSE+t28E+VmdF/JcQDY2pHb8szQ6PjS1PCkeq3IbYvdsYTSAWOBa9coqXECwkwEdtI6tuGQpXL/MOnq7ZncOetdpF4='
-
-branches:
-  only:
-    - master
-    - gh-pages
+    # heroku key
+    - secure: 'i5m+ZKuyoEf/bXwqTEWnZXM5Ge0mAqreIfDr0pvicSpkVYcWkoe2ynQ5ZmlB5HnEOUW9NIuQNft3j29wt0wIw+axVDTK9XTB0sWP9vvCXYuTstyZ4GhhzlEGNX1fJt5ZyRuwFrIWP/vraLE+tNBLXuB0s8h02zQ5V2kXTezJMJU='
     
 # starts xvfb on display port :99.0 (virtual display for Firefox)
 before_install:
@@ -34,17 +31,24 @@ install:
 # run unit and e2e tests
 script:
   - bash -ex ./ci_build.sh
-  - ls -a
-  - git branch -a
 
-before_deploy: "echo 'ready?'"
-deploy:
-  provider: heroku
-  api_key:
-    secure: i5m+ZKuyoEf/bXwqTEWnZXM5Ge0mAqreIfDr0pvicSpkVYcWkoe2ynQ5ZmlB5HnEOUW9NIuQNft3j29wt0wIw+axVDTK9XTB0sWP9vvCXYuTstyZ4GhhzlEGNX1fJt5ZyRuwFrIWP/vraLE+tNBLXuB0s8h02zQ5V2kXTezJMJU=
-  run: 
-    - "cd dist/"
-    - "npm install"
-    - restart
-  app: 
-    gh-pages: employee-scheduling
+after_success:
+  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  - git remote add heroku git@heroku.com:employee-scheduling.git
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+  - yes | heroku keys:add
+  - yes | git subtree push --prefix build heroku master
+
+#deploy:
+#  provider: heroku
+#  api_key:
+#    secure: i5m+ZKuyoEf/bXwqTEWnZXM5Ge0mAqreIfDr0pvicSpkVYcWkoe2ynQ5ZmlB5HnEOUW9NIuQNft3j29wt0wIw+axVDTK9XTB0sWP9vvCXYuTstyZ4GhhzlEGNX1fJt5ZyRuwFrIWP/vraLE+tNBLXuB0s8h02zQ5V2kXTezJMJU=
+#  run:
+#    - "cd dist/"
+#    - "npm install"
+#    - restart
+#  app:
+#    gh-pages: employee-scheduling

@@ -80,7 +80,7 @@ function run {
         TAG_NAME="v$VERSION"
 
         # Remove old artifacts from gh-pages branch
-        clean_gh_pages_branch "Remove old artifacts and preparing branch for v$TAG_NAME"
+        clean_gh_pages_branch "Remove old artifacts and preparing branch for release v$TAG_NAME"
 
         # Create and push the tag to Github
         git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
@@ -105,7 +105,7 @@ function run {
         NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
 
         # Remove old artifacts from gh-pages branch
-        clean_gh_pages_branch "Remove old artifacts and preparing branch for v$NEW_VERSION"
+        clean_gh_pages_branch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
 
         replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"

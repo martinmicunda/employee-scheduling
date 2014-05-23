@@ -34,6 +34,17 @@ function init {
     fi
 }
 
+function clean_gh_pages_branch {
+    git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
+    cd gh-pages
+    git rm -rf .
+    git add -f .
+    git commit -m $1
+    git push -f origin gh-pages > /dev/null
+    cd ../
+    rm -rf gh-pages
+}
+
 function run {
 
     echo "BRANCH=$BRANCH"
@@ -61,22 +72,15 @@ function run {
     OLD_VERSION=$(readJsonProp ".tmp/package.old.json" "version")
     VERSION=$(readJsonProp "package.json" "version")
 
-    # Remove old artifacts from gh-pages branch
-    git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
-    cd gh-pages
-    git rm -rf .
-    git add -f .
-    git commit -m "Remove old artifacts and preparing branch for v$VERSION"
-    git push -f origin gh-pages > /dev/null
-    cd ../
-    rm -rf gh-pages
-
     if [[ "$OLD_VERSION" != "$VERSION" ]]; then
         echo "#########################"
         echo "# Releasing v$VERSION! #"
         echo "#########################"
 
         TAG_NAME="v$VERSION"
+
+        # Remove old artifacts from gh-pages branch
+        clean_gh_pages_branch "Remove old artifacts and preparing branch for v$TAG_NAME"
 
         # Create and push the tag to Github
         git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
@@ -99,6 +103,10 @@ function run {
         echo "######################################"
 
         NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
+
+        # Remove old artifacts from gh-pages branch
+        clean_gh_pages_branch "Remove old artifacts and preparing branch for vNEW_VERSION"
+
         replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
 

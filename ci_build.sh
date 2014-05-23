@@ -105,7 +105,7 @@ function run {
         NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
 
         # Remove old artifacts from gh-pages branch
-        clean_gh_pages_branch "Remove old artifacts and preparing branch for vNEW_VERSION"
+        clean_gh_pages_branch "Remove old artifacts and preparing branch for v$NEW_VERSION"
 
         replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"

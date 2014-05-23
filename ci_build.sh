@@ -39,7 +39,7 @@ function clean_gh_pages_branch {
     cd gh-pages
     git rm -rf .
     git add -f .
-    git commit -m $1
+    git commit -m "$1"
     git push -f origin gh-pages > /dev/null
     cd ../
     rm -rf gh-pages

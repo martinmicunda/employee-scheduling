@@ -37,4 +37,4 @@ deploy:
   app: 
     master: my-app-staging
   on:
-    repo: martinmicunda/employee-scheduling
+    branch: staging

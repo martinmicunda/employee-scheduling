@@ -29,6 +29,8 @@ install:
 # run unit and e2e tests
 script:
   - bash -ex ./ci_build.sh
+  - ls -a
+  - git branch -a
 
 before_deploy: "echo 'ready?'"
 deploy:
@@ -41,5 +43,3 @@ deploy:
     - restart
   app: 
     gh-pages: employee-scheduling
-  on:
-    branch: gh-pages

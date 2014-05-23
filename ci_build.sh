@@ -62,11 +62,12 @@ function run {
     VERSION=$(readJsonProp "package.json" "version")
 
     # Remove old artifacts from gh-pages branch
-    git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
+    git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
     cd gh-pages
     git rm -rf .
-    git commit -a -m "Remove old artifacts and preparing branch for v$VERSION"
-    git push -f origin gh-pages
+    git add -f .
+    git commit -m "Remove old artifacts and preparing branch for v$VERSION"
+    git push -f origin gh-pages > /dev/null
     cd ../
     rm -rf gh-pages
 

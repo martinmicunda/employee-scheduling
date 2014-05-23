@@ -45,7 +45,7 @@ function run {
     git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
     cd gh-pages
     git rm -rf .
-    git commit -a -m "Remove old artifacts"
+    git commit -a -m "Remove old artifacts and prepering branch for v$VERSION"
     git push -f origin gh-pages
     cd ../
     rm -rf gh-pages

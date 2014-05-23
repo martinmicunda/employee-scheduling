@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+<testsuite name="angularjs homepage" errors="0" tests="1" failures="0" time="13.167" timestamp="2014-05-23T19:46:44">
+  <testcase classname="angularjs homepage" name="should greet the named user" time="4.214"></testcase>
+</testsuite>
+<testsuite name="angularjs homepage.todo list" errors="0" tests="2" failures="0" time="8.953" timestamp="2014-05-23T19:46:48">
+  <testcase classname="angularjs homepage.todo list" name="should list todos" time="3.142"></testcase>
+  <testcase classname="angularjs homepage.todo list" name="should add a todo" time="5.81"></testcase>
+</testsuite>
+</testsuites>

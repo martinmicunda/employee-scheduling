@@ -17,7 +17,12 @@ env:
     - secure: YDGbgsTSvN9evJIRhX22Y+P56VYK50bT1tnQrkMxLRANyyQc6UF/e5iKWm+Yy4/0OWq12o+2tTvBc/MgdwSE+t28E+VmdF/JcQDY2pHb8szQ6PjS1PCkeq3IbYvdsYTSAWOBa9coqXECwkwEdtI6tuGQpXL/MOnq7ZncOetdpF4=
     # HEROKU_API_KEY
     - secure: eNQJbfy4sB1tCZXbkmHeb9+APA2jYL3Zrp/q9h2JvhAvtsH804gK5p+Dg5y3AA6wKnpwqm03/i4BVCUn6UK9Ono2hjxZfksQDtknNdR8UMaRvA3Iymd1vCpLJnuVtocU2QfFiXYEVIuKdHkIm4ut53Is2URHwOJrtysaLTkt3Yo=
-    
+
+branches:
+  only:
+    - master
+    - deploy
+
 # starts xvfb on display port :99.0 (virtual display for Firefox)
 before_install:
   - "export DISPLAY=:99.0"

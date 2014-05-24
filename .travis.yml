@@ -18,11 +18,6 @@ env:
     # HEROKU_API_KEY
     - secure: eNQJbfy4sB1tCZXbkmHeb9+APA2jYL3Zrp/q9h2JvhAvtsH804gK5p+Dg5y3AA6wKnpwqm03/i4BVCUn6UK9Ono2hjxZfksQDtknNdR8UMaRvA3Iymd1vCpLJnuVtocU2QfFiXYEVIuKdHkIm4ut53Is2URHwOJrtysaLTkt3Yo=
 
-branches:
-  only:
-    - master
-    - deploy
-
 # starts xvfb on display port :99.0 (virtual display for Firefox)
 before_install:
   - "export DISPLAY=:99.0"
@@ -32,7 +27,7 @@ before_install:
 install:
   - npm install --quiet
 
-#before_script:
+before_script:
   - sudo add-apt-repository ppa:git-core/ppa -y
   - sudo apt-get update
   - sudo apt-get install git -y
@@ -40,20 +35,3 @@ install:
 script:
   - bash -ex ./ci_build.sh
 
-#after_success:
-#  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-#  - git remote add heroku git@heroku.com:employee-scheduling.git
-#  - echo "Host heroku.com" >> ~/.ssh/config
-#  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-#  - echo "   CheckHostIP no" >> ~/.ssh/config
-#  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-#  - yes | heroku keys:add
-#  - yes | git subtree push --prefix build heroku master
-
-#deploy:
-#  provider: heroku
-#  api_key:
-#    secure: i5m+ZKuyoEf/bXwqTEWnZXM5Ge0mAqreIfDr0pvicSpkVYcWkoe2ynQ5ZmlB5HnEOUW9NIuQNft3j29wt0wIw+axVDTK9XTB0sWP9vvCXYuTstyZ4GhhzlEGNX1fJt5ZyRuwFrIWP/vraLE+tNBLXuB0s8h02zQ5V2kXTezJMJU=
-#  app:
-#    deploy: employee-scheduling
-#  on: deploy

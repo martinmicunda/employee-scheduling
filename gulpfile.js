@@ -68,7 +68,7 @@ var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
  * Declare environment constants that are use in gulpfile.js
  */
 var PRODUCTION_URL       = 'http://rightdestinations.com';
-var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';
+var DEVELOPMENT_URL      = 'http://127.0.0.1:5000';
 var PRODUCTION_CDN_URL   = 'http://static.rightdestinations.com';
 
 /**

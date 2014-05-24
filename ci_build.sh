@@ -50,7 +50,7 @@ function deploy_to_heroku {
     git rm -rf ./.gitignore
     git status
     git add build/dist
-    git commit -m "Add build folder for heroku" --no-verify
+    git commit -m "$1" --no-verify
 
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     git remote add heroku git@heroku.com:employee-scheduling.git
@@ -83,11 +83,11 @@ function run {
     npm install
 
     echo "-- Build production app code"
-    gulp build --notest
+    gulp build --notest --nocdn
 
     echo "-- Running unit tests "
     gulp test:unit
-    gulp test:e2e --browsers=Firefox
+#    gulp test:e2e --browsers=Firefox
 
     if [[ "$PULL_REQUEST" != "false" ]]; then
         echo "-- This is a pull request build; will not push build out."
@@ -115,6 +115,8 @@ function run {
 
         # Publish to GitHub gs-pages branch
         gulp gh-pages
+
+        deploy_to_heroku "Deploy release v$TAG_NAME"
 
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"
@@ -148,7 +150,7 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
-        deploy_to_heroku
+        deploy_to_heroku "Deploy prerelease v$NEW_VERSION"
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"

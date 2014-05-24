@@ -56,6 +56,7 @@ function deploy_to_heroku {
     git clone --quiet --branch=deploy https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git deploy/
     cd deploy
     git rm -rf .
+    cp -R ../build/dist/ .
     git add -f .
     git commit -m "$1"
     git push -f origin deploy > /dev/null

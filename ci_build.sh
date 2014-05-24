@@ -65,11 +65,12 @@ function deploy_to_heroku {
 #    heroku keys:remove ~/.ssh/config
 #    heroku keys:clear
 #    heroku keys:remove travis-${TRAVIS_JOB_ID}@example.com
+     heroku keys:remove travis@testing-worker*
 
     # Add a new SSH key to Heroku
     yes | heroku keys:add
-#    yes | git subtree push --prefix build/dist/ heroku master
-    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
+    yes | git subtree push --prefix build/dist/ heroku master
+#    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
 }
 
 function run {

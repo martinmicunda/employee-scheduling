@@ -49,7 +49,7 @@ function deploy_to_heroku {
     git rm -rf ./.gitignore
     git status
     git add build
-    git commit -m "Add build folder for heroku"
+    git commit -m "Add build folder for heroku" --no-verify
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     git remote add heroku git@heroku.com:employee-scheduling.git
     echo "Host heroku.com" >> ~/.ssh/config

@@ -46,6 +46,7 @@ function clean_gh_pages_branch {
 }
 
 function deploy_to_heroku {
+    # Tracking build/dist directory by git
     git fetch --unshallow
     git rm -rf ./.gitignore
     git status
@@ -68,8 +69,8 @@ function deploy_to_heroku {
 
     # Add a new SSH key to Heroku
     yes | heroku keys:add
-    yes | git subtree push --prefix build/dist/ heroku master
-#    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
+#    yes | git subtree push --prefix build/dist/ heroku master
+    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
 }
 
 function run {

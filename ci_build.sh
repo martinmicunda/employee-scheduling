@@ -57,7 +57,7 @@ function deploy_to_heroku {
     cd deploy
     git rm -rf .
     cp -R ../build/dist/ .
-    git add -f .
+    git add -A .
     git commit -m "$1"
     git push -f origin deploy > /dev/null
 

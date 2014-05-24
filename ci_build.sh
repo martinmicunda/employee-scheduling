@@ -70,7 +70,7 @@ function deploy_to_heroku {
 
     # Add a new SSH key to Heroku
     yes | heroku keys:add
-    yes | git heroku pull master
+    yes | git pull heroku master
     yes | git subtree push --prefix build/dist/ heroku master
 #    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
 }

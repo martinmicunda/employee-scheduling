@@ -51,12 +51,22 @@ function deploy_to_heroku {
     git status
     git add build/dist
     git commit -m "Add build folder for heroku" --no-verify
+
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     git remote add heroku git@heroku.com:employee-scheduling.git
+
+    # Turn off warnings about SSH keys
     echo "Host heroku.com" >> ~/.ssh/config
     echo "   StrictHostKeyChecking no" >> ~/.ssh/config
     echo "   CheckHostIP no" >> ~/.ssh/config
     echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+
+    # Clear your current Heroku SSH keys
+    heroku keys:remove ~/.ssh/id_rsa
+#    heroku keys:clear
+#    heroku keys:remove travis-${TRAVIS_JOB_ID}@example.com
+
+    # Add a new SSH key to Heroku
     yes | heroku keys:add
 #    yes | git subtree push --prefix build/dist/ heroku master
     yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
@@ -138,7 +148,7 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
-#        deploy_to_heroku
+        deploy_to_heroku
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"

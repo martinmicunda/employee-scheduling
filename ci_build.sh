@@ -48,7 +48,7 @@ function clean_gh_pages_branch {
 function deploy_to_heroku {
     git rm -rf ./.gitignore
     git status
-    git add -f
+    git add .
     git commit -m "Add build folder for heroku"
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     git remote add heroku git@heroku.com:employee-scheduling.git

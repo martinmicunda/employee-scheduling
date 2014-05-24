@@ -57,7 +57,7 @@ function deploy_to_heroku {
     echo "   CheckHostIP no" >> ~/.ssh/config
     echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
     yes | heroku keys:add
-    yes | git subtree push --prefix build heroku master
+    yes | git subtree push --prefix build/dist/ heroku master
 #    git push heroku `git subtree split --prefix build/dist/ master`:master --force
 }
 

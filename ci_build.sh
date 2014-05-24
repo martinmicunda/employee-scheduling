@@ -46,6 +46,7 @@ function clean_gh_pages_branch {
 }
 
 function deploy_to_heroku {
+    git fetch --unshallow
     git rm -rf ./.gitignore
     git status
     git add build/dist

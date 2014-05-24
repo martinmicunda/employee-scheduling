@@ -53,6 +53,7 @@ function deploy_to_heroku {
     git add build/dist
     git commit -m "$1" --no-verify
 
+    # Install Heroku CLI
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     git remote add heroku git@heroku.com:employee-scheduling.git
 
@@ -62,15 +63,16 @@ function deploy_to_heroku {
     echo "   CheckHostIP no" >> ~/.ssh/config
     echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
 
-    # Clear your current Heroku SSH keys
+    # Clear Heroku SSH keys
 #    heroku keys:remove ~/.ssh/config
 #    heroku keys:clear
 #    heroku keys:remove travis-${TRAVIS_JOB_ID}@example.com
 
     # Add a new SSH key to Heroku
     yes | heroku keys:add
-#    yes | git subtree push --prefix build/dist/ heroku master
-    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
+    yes | git heroku pull master
+    yes | git subtree push --prefix build/dist/ heroku master
+#    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
 }
 
 function run {

@@ -26,7 +26,6 @@ before_install:
 # install dependencies necessary to run this build
 install:
   - npm install --quiet
-  #- npm install -g gulp webdriver_update
 
 before_script:
   - sudo add-apt-repository ppa:git-core/ppa -y
@@ -36,15 +35,15 @@ before_script:
 script:
   - bash -ex ./ci_build.sh
 
-after_success:
-  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-  - git remote add heroku git@heroku.com:employee-scheduling.git
-  - echo "Host heroku.com" >> ~/.ssh/config
-  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-  - echo "   CheckHostIP no" >> ~/.ssh/config
-  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-  - yes | heroku keys:add
-  - yes | git subtree push --prefix build heroku master
+#after_success:
+#  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+#  - git remote add heroku git@heroku.com:employee-scheduling.git
+#  - echo "Host heroku.com" >> ~/.ssh/config
+#  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+#  - echo "   CheckHostIP no" >> ~/.ssh/config
+#  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+#  - yes | heroku keys:add
+#  - yes | git subtree push --prefix build heroku master
 
 #deploy:
 #  provider: heroku

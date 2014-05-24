@@ -45,6 +45,21 @@ function clean_gh_pages_branch {
     rm -rf gh-pages
 }
 
+function deploy_to_heroku {
+    git rm -rf ./.gitignore
+    git add -f
+    git commit -m "Add build folder for heroku"
+    wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+    git remote add heroku git@heroku.com:employee-scheduling.git
+    echo "Host heroku.com" >> ~/.ssh/config
+    echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+    echo "   CheckHostIP no" >> ~/.ssh/config
+    echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+    yes | heroku keys:add
+    yes | git subtree push --prefix build heroku master
+#    git push heroku `git subtree split --prefix build/dist/ master`:master --force
+}
+
 function run {
 
     echo "BRANCH=$BRANCH"
@@ -120,6 +135,8 @@ function run {
 
         # Publish to GitHub gs-pages branch
         gulp gh-pages
+
+        deploy_to_heroku
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"

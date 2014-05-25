@@ -46,21 +46,6 @@ function clean_gh_pages_branch {
 }
 
 function deploy_to_heroku {
-    # Tracking build/dist directory by git
-#    git fetch --unshallow
-#    git rm -rf ./.gitignore
-#    git status
-#    git add build/dist
-#    git commit -m "$1" --no-verify
-
-#    git clone --quiet --branch=deploy https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git deploy/
-#    cd deploy
-#    git rm -rf .
-#    cp -R ../build/dist/* .
-#    git add -A .
-#    git commit -m "$1"
-#    git push -f origin deploy > /dev/null
-
     # Install Heroku CLI
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     git remote add heroku git@heroku.com:employee-scheduling.git
@@ -78,18 +63,15 @@ function deploy_to_heroku {
 
     # Add a new SSH key to Heroku
     yes | heroku keys:add
-    git status
-    pwd
+
+    # Push latest build/dist to heroku
     heroku git:clone -a employee-scheduling heroku/
     cd heroku
     git rm -rf .
     cp -R ../build/dist/* .
     git add -A .
     git commit -m "$1"
-
     git push -f heroku master
-#    yes | git subtree push --prefix build/dist/ heroku master
-#    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
     cd ../
     rm -rf heroku
 }

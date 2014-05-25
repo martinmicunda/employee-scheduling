@@ -18,8 +18,8 @@ require('./config/express')(app);
 //require('./config/routes')(app);
 
 // Start up the server on the port specified in the config
-app.listen(process.env.PORT || config.get("express:port"), function () {
-    console.info(config.get("app:name") + ' app started on port: ' + (process.env.PORT || config.get("express:port")) + ' - with environment: ' + config.get("env"));
+app.listen(process.env.PORT || config.get('express:port'), function () {
+    console.info(config.get('app:name') + ' app started on port: ' + (process.env.PORT || config.get('express:port')) + ' - with environment: ' + config.get('env'));
 });
 
 // Expose app

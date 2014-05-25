@@ -1,3 +1,5 @@
+'use strict';
+
 // RESTful API Handlers
 var handlers = {
     index: require('../controllers/index')

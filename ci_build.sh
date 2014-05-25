@@ -58,7 +58,7 @@ function deploy_to_heroku {
 
     # Clear Heroku SSH keys
 #    heroku keys:remove ~/.ssh/config
-#    heroku keys:clear
+   heroku keys:clear
 #    heroku keys:remove travis-${TRAVIS_JOB_ID}@example.com
 
     # Add a new SSH key to Heroku

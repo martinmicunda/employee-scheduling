@@ -32,9 +32,14 @@ function init {
         COMMIT=$(git rev-parse HEAD)
         BRANCH=origin/master
     fi
+
+    echo "BRANCH=$BRANCH"
+    echo "BUILD_NUMBER=$BUILD_NUMBER"
+    echo "PULL_REQUEST=$PULL_REQUEST"
+    echo "COMMIT=$COMMIT"
 }
 
-function clean_gh_pages_branch {
+function cleanGhPagesBranch {
     git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
     cd gh-pages
     git rm -rf .
@@ -45,7 +50,7 @@ function clean_gh_pages_branch {
     rm -rf gh-pages
 }
 
-function deploy_to_heroku {
+function deployToHeroku {
     # Install Heroku CLI
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     git remote add heroku git@heroku.com:employee-scheduling.git
@@ -76,12 +81,27 @@ function deploy_to_heroku {
     rm -rf heroku
 }
 
+# readJsonProp(jsonFile, property)
+# - restriction: property needs to be on a single line!
+function readJsonProp {
+  echo $(sed -En 's/.*"'$2'"[ ]*:[ ]*"(.*)".*/\1/p' $1)
+}
+
+# replaceJsonProp(jsonFile, property, newValue)
+# - note: propertyRegex will be automatically placed into a
+#   capturing group! -> all other groups start at index 2!
+function replaceJsonProp {
+  replaceInFile $1 "\"$2\": \".*?\"" "\"$2\": \"$3\""
+}
+
+# replaceInFile(file, findPattern, replacePattern)
+function replaceInFile {
+  perl -pi -e "s/$2/$3/g;" $1
+}
+
 function run {
 
-    echo "BRANCH=$BRANCH"
-    echo "BUILD_NUMBER=$BUILD_NUMBER"
-    echo "PULL_REQUEST=$PULL_REQUEST"
-    echo "COMMIT=$COMMIT"
+    init
 
     # Install NPM packages
     npm install
@@ -111,7 +131,7 @@ function run {
         TAG_NAME="v$VERSION"
 
         # Remove old artifacts from gh-pages branch
-        clean_gh_pages_branch "Remove old artifacts and preparing branch for release v$TAG_NAME"
+        cleanGhPagesBranch "Remove old artifacts and preparing branch for release v$TAG_NAME"
 
         # Create and push the tag to Github
         git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
@@ -120,7 +140,7 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
-        deploy_to_heroku "Deploy release v$TAG_NAME"
+        deployToHeroku "Deploy release v$TAG_NAME"
 
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"
@@ -138,7 +158,7 @@ function run {
         NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
 
         # Remove old artifacts from gh-pages branch
-        clean_gh_pages_branch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
+        cleanGhPagesBranch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
 
         replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
@@ -154,7 +174,7 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
-        deploy_to_heroku "Deploy prerelease v$NEW_VERSION"
+        deployToHeroku "Deploy prerelease v$NEW_VERSION"
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"
@@ -162,5 +182,3 @@ function run {
     fi
 
 }
-
-source $(dirname $0)/utils.inc

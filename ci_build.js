@@ -6,6 +6,7 @@ console.log('#################################');
 console.log('####      CI Build     ##########');
 console.log('#################################');
 
+var fs   = require('fs');
 var exec = require('child_process').exec;
 var BUILD_NUMBER, PULL_REQUEST, COMMIT, BRANCH;
 
@@ -42,7 +43,7 @@ var installDependencies = function(callback) {
 
     console.log('Installing NPM packages...');
 
-    var install = exec('npm install', function(error) {
+    var npm = exec('npm install', function(error) {
         if (error !== null) {
             console.error('Error installing NPM packages: ' + error);
             process.exit(1);
@@ -51,8 +52,8 @@ var installDependencies = function(callback) {
         }
     });
 
-    install.stdout.pipe(process.stdout);
-    install.stderr.pipe(process.stderr);
+    npm.stdout.pipe(process.stdout);
+    npm.stderr.pipe(process.stderr);
 
 };
 
@@ -60,7 +61,7 @@ var gulpBuild = function(callback) {
 
     console.log('Build production app code...');
 
-    var install = exec('gulp build --notest --nocdn', function(error) {
+    var gulp = exec('gulp build --notest --nocdn', function(error) {
         if (error !== null) {
             console.error('Error build production app code: ' + error);
             process.exit(1);
@@ -69,24 +70,37 @@ var gulpBuild = function(callback) {
         }
     });
 
-    install.stdout.pipe(process.stdout);
-    install.stderr.pipe(process.stderr);
+    gulp.stdout.pipe(process.stdout);
+    gulp.stderr.pipe(process.stderr);
 
 };
 
-var gulpTest = function() {
+var gulpTest = function(callback) {
 
     console.log('Running unit tests...');
 
-    var install = exec('gulp test:unit', function(error) {
+    var gulp = exec('gulp test:unit', function(error) {
         if (error !== null) {
             console.error('Error running unit tests: ' + error);
             process.exit(1);
+        } else {
+            callback();
         }
     });
 
-    install.stdout.pipe(process.stdout);
-    install.stderr.pipe(process.stderr);
+    gulp.stdout.pipe(process.stdout);
+    gulp.stderr.pipe(process.stderr);
+
+};
+
+var checkForPullRequest = function(callback) {
+
+    if(PULL_REQUEST != false) {
+        console.log('This is a pull request build; will not push build out.');
+        process.exit(0);
+    } else {
+        callback();
+    }
 
 };
 
@@ -95,11 +109,33 @@ function run() {
 
     installDependencies(function cb() {
         gulpBuild(function cb() {
-            gulpTest();
+            gulpTest(function cb() {
+                checkForPullRequest(function cb() {
+                    fs.mkdirSync('.tmp');
+                    exec('git show ' + COMMIT + '~1:package.json > .tmp/package.old.json');
+
+                });
+            });
         });
     });
 
-
+    console.log('Test yyyyyyyy');
 }
 
 run();
+
+//var tasks = [];
+//
+//
+//tasks.push(function install() {});
+//tasks.push(function test() {});
+//
+//
+//...
+//
+//
+//
+//
+//for(var i = 0; i < tasks.length; i++) {
+//    tasks[i]();
+//}

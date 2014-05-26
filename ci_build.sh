@@ -5,7 +5,7 @@ echo "####      CI Build     ##########"
 echo "#################################"
 
 # Enable tracing and exit on first failure
-set -xe
+set -e
 
 ARG_DEFS=(
 )
@@ -79,24 +79,6 @@ function deployToHeroku {
     git push -f heroku master
     cd ../
     rm -rf heroku
-}
-
-# readJsonProp(jsonFile, property)
-# - restriction: property needs to be on a single line!
-function readJsonProp {
-  echo $(sed -En 's/.*"'$2'"[ ]*:[ ]*"(.*)".*/\1/p' $1)
-}
-
-# replaceJsonProp(jsonFile, property, newValue)
-# - note: propertyRegex will be automatically placed into a
-#   capturing group! -> all other groups start at index 2!
-function replaceJsonProp {
-  replaceInFile $1 "\"$2\": \".*?\"" "\"$2\": \"$3\""
-}
-
-# replaceInFile(file, findPattern, replacePattern)
-function replaceInFile {
-  perl -pi -e "s/$2/$3/g;" $1
 }
 
 function run {
@@ -182,3 +164,5 @@ function run {
     fi
 
 }
+
+source $(dirname $0)/utils.inc

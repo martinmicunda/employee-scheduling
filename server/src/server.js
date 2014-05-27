@@ -3,7 +3,6 @@
 /**
  * Module dependencies.
  */
-var app     = require('express')();
 var config  = require('./config/config');
 
 /**
@@ -11,8 +10,8 @@ var config  = require('./config/config');
  * Note that the order of loading is important.
  */
 
-// express settings
-require('./config/express')(app);
+// init the express application
+var app = require('./config/express')();
 
 // routes settings
 //require('./config/routes')(app);

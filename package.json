@@ -98,7 +98,11 @@
     "minimist": "^0.1.0",
     "you-shall-not-commit": "^0.0.1",
     "david": "^3.1.0",
-    "semver": "^2.3.0"
+    "semver": "^2.3.0",
+    "lodash": "^2.4.1",
+    "glob": "^4.0.0",
+    "compression": "1.0.2",
+    "helmet": "0.2.1"
   },
   "licenses": [
     {

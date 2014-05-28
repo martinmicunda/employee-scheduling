@@ -9,13 +9,14 @@
         <meta name="viewport" content="width=device-width">
         <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 
-        <!-- build:css_libs assets/styles/vendor.min.css -->
+        <!-- build:css_libs styles/vendor.min.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
-        <!-- build:css assets/styles/app.min.css -->
+        <!-- build:css styles/app.min.css -->
+        <link rel="stylesheet" href=".tmp/styles/main.css" />
         <!-- endbuild -->
     </head>
     <body>
@@ -34,13 +35,17 @@
         <!-- bower:js -->
         <script src="vendor/jquery/dist/jquery.js"></script>
         <script src="vendor/angular/angular.js"></script>
-        <script src="vendor/angular-route/angular-route.js"></script>
+        <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="vendor/lodash/dist/lodash.compat.js"></script>
+        <script src="vendor/restangular/dist/restangular.js"></script>
         <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:js({.tmp,client/src}) scripts/app.min.js -->
-        <script src="app/dd.js"></script>
+        <script src="app/config.js"></script>
+        <script src="app/app.js"></script>
         <script src="app/config/config-env.js"></script>
         <!-- inject:templates:js --><!-- endinject -->
         <!-- endbuild -->

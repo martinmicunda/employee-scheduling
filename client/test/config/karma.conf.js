@@ -32,12 +32,19 @@ module.exports = function (config) {
             // libraries
             'client/src/vendor/jquery/dist/jquery.js',
             'client/src/vendor/angular/angular.js',
+            'client/src/vendor/angular-ui-router/release/angular-ui-router.js',
+            'client/src/vendor/lodash/dist/lodash.compat.js',
+            'client/src/vendor/restangular/dist/restangular.js',
+            'client/src/vendor/angular-ui-router/release/angular-ui-router.js',
             'client/src/vendor/bootstrap/dist/js/bootstrap.js',
+            'client/src/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
 
             // test libraries
             'client/src/vendor/angular-mocks/angular-mocks.js',
 
             // our app
+            'client/src/app/config.js',
+            'client/src/app/app.js',
             'client/src/app/**/*-module.js',
             'client/src/app/**/!(*_test).js',
 

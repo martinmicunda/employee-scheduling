@@ -11,7 +11,7 @@
 var argv        = require('minimist')(process.argv.slice(2));
 var gulp        = require('gulp');
 var semver      = require('semver');
-var browser      = require('tiny-lr')();
+var browser     = require('tiny-lr')();
 var wiredep     = require('wiredep').stream;
 var runSequence = require('run-sequence');
 
@@ -24,6 +24,7 @@ var runSequence = require('run-sequence');
  * Load required Gulp tasks. These are installed based on the versions listed
  * in 'package.json' when you do 'npm install' in this directory.
  */
+var nib                  = require('nib');
 var rev                  = require('gulp-rev');
 var exec                 = require('gulp-exec');
 var size                 = require('gulp-size');
@@ -36,13 +37,14 @@ var clean                = require('gulp-clean');
 var karma                = require('gulp-karma');
 var watch                = require('gulp-watch');
 var inject               = require('gulp-inject');
+var stylus               = require('gulp-stylus');
 var gulpif               = require('gulp-if');
+var concat               = require('gulp-concat');
 var jshint               = require('gulp-jshint');
 var header               = require('gulp-header');
 var uglify               = require('gulp-uglify');
 var usemin               = require('gulp-usemin');
 var nodemon              = require('gulp-nodemon');
-var csslint              = require('gulp-csslint');
 var ghPages              = require("gulp-gh-pages");
 var refresh              = require('gulp-livereload');
 var cdnizer              = require("gulp-cdnizer");
@@ -143,9 +145,9 @@ var paths = {
      */
     client: {
         basePath:       'client/src/',
-        styles:         'client/src/assets/styles/**/*.css',
-        images:         'client/src/assets/images/**/*.{png,gif,jpg,jpeg}',
-        fonts:          'client/src/assets/fonts/**/*',
+        styles:         'client/src/styles/**/*.styl',
+        images:         'client/src/images/**/*.{png,gif,jpg,jpeg}',
+        fonts:          'client/src/fonts/**/*',
         scripts:        ['client/src/app/**/*.js', '!client/src/app/config/config-env.js', '!client/src/app/**/*_test.js'],
         html:           'client/src/*.html',
         templates:      'client/src/app/**/*.html',
@@ -170,8 +172,9 @@ var paths = {
      * copy to 'dist' folder.
      */
     tmp: {
-        basePath:       '.tmp',
-        scripts:        '.tmp/scripts/'
+        basePath:       'client/src/.tmp',
+        scripts:        'client/src/.tmp/scripts/',
+        styles:         'client/src/.tmp/styles/'
     },
     /**
      * The 'build' folder is where our app resides once it's
@@ -268,9 +271,9 @@ gulp.task('develop', function () {
 });
 
 /**
- * The 'clean' task delete 'build' and '.tmp' directories.
+ * The 'clean' task delete 'build' and 'client/src/.tmp' directories.
  */
-gulp.task('clean', 'Delete \'build\' and \'.tmp\' directories', function () {
+gulp.task('clean', 'Delete \'build\' and \'client/src/.tmp\' directories', function () {
     return gulp.src([paths.build.basePath, paths.tmp.basePath], {read: false}) // Not necessary to read the files (will speed up things), we're only after their paths
         .pipe(clean());
 });
@@ -293,34 +296,15 @@ gulp.task('copy', 'Copy project files that haven\'t been copied by \'compile\' t
 });
 
 /**
- * The 'csslint' task defines the rules of our linter as well as which files we
- * should check. This file, all css sources.
+ * The 'stylus' compile and compress stylus files to main.css.
  */
-gulp.task('csslint', 'Lint CSS files', function () {
-    var hasCssLintError = false;
-
-    var errorReporter = function() {
-        if(!isWatching && hasCssLintError) {
-            return process.exit(1);
-        }
-    };
-
-    return gulp.src(paths.client.styles)
-        .pipe(csslint())
-        .pipe(csslint.reporter(function(file) {
-            if(!file.csslint.success) {
-                var errorCount = file.csslint.errorCount;
-                var plural = errorCount === 1 ? '' : 's';
-                gutil.log(COLORS.cyan(errorCount) + ' error' + plural + ' found in ' + COLORS.magenta(file.path));
-                file.csslint.results.forEach(function(result) {
-                    gutil.log(COLORS.red('[csslint L' + result.error.line  + ':C' + result.error.col + '] ' + result.error.message));
-                });
-                hasCssLintError = true;
-            }
-        }))
+gulp.task('stylus', 'Compile and compress stylus files to main.css', function () {
+    gulp.src(paths.client.styles)
+        .pipe(stylus({errors: true, compress: true, use: [nib()]}))
+        .pipe(concat('main.css'))
+        .pipe(gulp.dest(paths.tmp.styles))
         .pipe(refresh(browser))
-        .pipe(size())
-        .on('end', errorReporter);
+        .pipe(size());
 });
 
 /**
@@ -435,8 +419,8 @@ gulp.task('templates', 'Minify html templates and create template cache js file'
  *    js_libs  - minify, add revision number
  *    html     - replace local path with CDN url, minify
  */
-gulp.task('compile', 'Does the same as \'csslint\', \'jshint:client\', \'jshint:server\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
-    ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'images', 'templates'], function () {
+gulp.task('compile', 'Does the same as \'stylus\', \'jshint:client\', \'jshint:server\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
+    ['stylus', 'jshint:client', 'jshint:server', 'htmlhint', 'images', 'templates'], function () {
         var projectHeader = header(banner, { pkg : pkg, date: new Date } );
 
         return gulp.src(paths.client.html)
@@ -487,7 +471,7 @@ gulp.task('bower-install', 'Does the same as \'bower\' task but also inject bowe
 gulp.task('watch', 'Watch client files for changes', function () {
 
     // Listen on port 35729
-    server.listen(LIVERELOAD_PORT, function (err) {
+    browser.listen(LIVERELOAD_PORT, function (err) {
         if (err) {
             return console.log(err)
         };
@@ -503,7 +487,7 @@ gulp.task('watch', 'Watch client files for changes', function () {
         });
 
         // Watch css files
-        gulp.watch(paths.client.styles, ['csslint']);
+        gulp.watch(paths.client.styles, ['stylus']);
 
         // Watch js files
         gulp.watch(paths.client.scripts, ['jshint:client']);
@@ -583,18 +567,18 @@ gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', 
  * The 'install' task is to build env and install bower.
  */
 gulp.task('install', 'Build env and install bower',  function (cb) {
-    runSequence(['bower-install', 'config-dev'], cb);
+    runSequence(['bower-install', 'config:dev'], cb);
 });
 
 /**
  * The 'default' task is to build env, install bower dependencies and run watch.
  */
 gulp.task('default', 'Build env, install bower dependencies and run watch', function (cb) {
-    // set to 'true' to avoid process exit on error for csslint, jshint and htmlhint
+    // set to 'true' to avoid process exit on error for jshint and htmlhint
     isWatching = true;
 
-    runSequence(['bower-install', 'config-dev'],
-        ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'watch'],
+    runSequence(['bower-install', 'config:dev'],
+        ['stylus', 'jshint:client', 'jshint:server', 'htmlhint', 'watch'],
         cb);
 });
 
@@ -665,7 +649,7 @@ gulp.task('build', 'Build application for deployment', function (cb) {
         // this task should run when user doesn't want to run test (this task is also running in CI server as CI server specify against what browsers the test should be running)
         runSequence(['clean', 'bower-install', 'config:prod'],
             ['compile', 'copy'],
-            // the reason why config-dev is running at the end is because when we generate build on local env it create production config-env.js file
+            // the reason why config:dev is running at the end is because when we generate build on local env it create production config-env.js file
             // and if developers want to run app in dev env after gulp build they are getting error because they forgot run gulp install to generate development config-env.js file
             ['config:dev'],
             cb);
@@ -676,7 +660,7 @@ gulp.task('build', 'Build application for deployment', function (cb) {
             ['test:unit'],
             ['test:e2e'],
             ['compile', 'copy'],
-            // the reason why config-dev is running at the end is because when we generate build on local env it create production config-env.js file
+            // the reason why config:dev is running at the end is because when we generate build on local env it create production config-env.js file
             // and if developers want to run app in dev env after gulp build they are getting error because they forgot run gulp install to generate development config-env.js file
             ['config:dev'],
             cb);
@@ -686,7 +670,7 @@ gulp.task('build', 'Build application for deployment', function (cb) {
 /**
  * Bump version number in package.json & bower.json.
  */
-gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'test:unit'], function () {
+gulp.task('bump', 'Bump version number in package.json & bower.json', ['stylus', 'jshint:client', 'jshint:server', 'htmlhint', 'test:unit'], function () {
     var HAS_REQUIRED_ATTRIBUTE = !!argv.type ? !!argv.type.match(new RegExp(/major|minor|patch/)) : false;
 
     if (!HAS_REQUIRED_ATTRIBUTE) {

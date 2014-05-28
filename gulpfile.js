@@ -70,8 +70,8 @@ var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
  * Declare environment constants that are use in gulpfile.js
  */
 var PRODUCTION_URL       = 'http://rightdestinations.com';
-var DEVELOPMENT_URL      = 'http://127.0.0.1:5000';
-var PRODUCTION_CDN_URL   = 'http://static.rightdestinations.com';
+var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';
+var PRODUCTION_CDN_URL   = 'http://127.0.0.1:5000';
 
 /**
  * Declare constants that are use in gulpfile.js or angular app
@@ -315,7 +315,7 @@ gulp.task('jshint:client', 'Hint client JavaScripts files', function () {
     return gulp.src(paths.client.scripts)
         .pipe(jshint('client/.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'))
-//        .pipe(gulpif(!isWatching, jshint.reporter('fail')))
+        .pipe(gulpif(!isWatching, jshint.reporter('fail')))
         .pipe(refresh(browser))
         .pipe(size());
 });
@@ -328,7 +328,7 @@ gulp.task('jshint:server', 'Hint server JavaScripts files', function () {
     return gulp.src(paths.server + 'js')
         .pipe(jshint('server/.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'))
-//        .pipe(gulpif(!isWatching, jshint.reporter('fail')))
+        .pipe(gulpif(!isWatching, jshint.reporter('fail')))
         .pipe(refresh(browser))
         .pipe(size());
 });

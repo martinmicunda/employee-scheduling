@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var config  = require('./config/config');
+var logger  = require('./config/logger')(module);
 
 /**
  * Main application entry file.
@@ -18,7 +19,7 @@ var app = require('./config/express')();
 
 // Start up the server on the port specified in the config
 app.listen(process.env.PORT || config.get('express:port'), function () {
-    console.info(config.get('app:name') + ' app started on port: ' + (process.env.PORT || config.get('express:port')) + ' - with environment: ' + config.get('env'));
+    logger.info(config.get('app:name') + ' app started on port: ' + (process.env.PORT || config.get('express:port')) + ' - with environment: ' + config.get('env'));
 });
 
 // Expose app

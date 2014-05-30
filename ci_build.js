@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 'use strict';
-
+// !!!! READ THIS BLOG ABOUT NESTED PROMISES http://joshmock.github.io/boilerplate-free-promises-in-node/?utm_source=nodeweekly&utm_medium=email
 console.log('#################################');
 console.log('####      CI Build     ##########');
 console.log('#################################');

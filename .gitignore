@@ -27,6 +27,6 @@ build/
 client/src/.tmp/
 
 # ignore angular env file
-client/src/app/config/config-env.js
+client/src/app/core/config/env/config-env.js
 
 gh-pages/

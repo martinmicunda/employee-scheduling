@@ -1,7 +1,7 @@
 {
   "name": "employee-scheduling",
   "description": "MEAN (Mongo, Express, Angular, Node) - An employee scheduling application",
-    "version": "0.0.0",
+  "version": "0.0.0",
   "private": true,
   "author": {
     "name": "Martin Micunda",
@@ -35,11 +35,12 @@
     "employee scheduling"
   ],
   "dependencies": {
-    "express": "^4.1.0",
-    "morgan": "^1.0.0",
     "body-parser": "^1.0.2",
-    "method-override": "^1.0.0",
     "errorhandler": "^1.0.0",
+    "express": "4.4.4",
+    "method-override": "^1.0.0",
+    "mm-mongoose-connection": "0.0.1",
+    "morgan": "^1.0.0",
     "nconf": "^0.6.9"
   },
   "devDependencies": {
@@ -68,15 +69,19 @@
     "gulp-util": "^2.2.14",
     "gulp-if": "^1.2.0",
     "gulp-concat": "^2.2.0",
-    "gulp-conventional-changelog": "^0.1.2",
+    "conventional-changelog": "0.0.11",
     "gulp-karma": "^0.0.4",
     "gulp-ng-constant": "^0.1.0",
-    "gulp-ngmin": "^0.3.0",
+    "gulp-ng-annotate": "0.2.0",
+    "gulp-sourcemaps": "1.1.0",
     "gulp-help": "^0.1.0",
     "gulp-cdnizer": "^0.2.4",
     "gulp-inject": "^0.4.1",
     "gulp-gh-pages": "^0.1.4",
     "gulp-nodemon": "^1.0.2",
+    "gulp-preprocess": "1.1.1",
+    "gulp-bytediff": "0.2.0",
+    "gulp-cache": "0.2.0",
     "gulp-angular-templatecache": "^1.1.1",
     "gulp-istanbul-enforcer": "^1.0.2",
     "gulp-protractor": "^0.0.7",
@@ -104,7 +109,19 @@
     "glob": "^4.0.0",
     "compression": "1.0.2",
     "helmet": "0.2.1",
-    "winston": "0.7.3"
+    "express-jwt": "0.2.1",
+    "jsonwebtoken": "0.4.0",
+    "mongoose": "3.8.12",
+    "redis": "0.10.3",
+    "bcryptjs": "1.0.2",
+    "colors": "0.6.2",
+    "passport": "0.2.0",
+    "passport-local": "0.1.0",
+    "mm-node-logger": "0.0.*",
+    "mm-mongoose-connection": "0.0.*",
+    "dgeni": "0.3.0",
+    "dgeni-packages": "0.9.5",
+    "canonical-path": "0.0.2"
   },
   "licenses": [
     {

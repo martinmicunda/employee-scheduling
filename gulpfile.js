@@ -8,11 +8,13 @@
  * Load required core dependencies. These are installed based on the versions listed
  * in 'package.json' when you do 'npm install' in this directory.
  */
+var fs          = require('fs');
 var argv        = require('minimist')(process.argv.slice(2));
 var gulp        = require('gulp');
 var semver      = require('semver');
 var browser     = require('tiny-lr')();
 var wiredep     = require('wiredep').stream;
+var changelog   = require('conventional-changelog');
 var runSequence = require('run-sequence');
 
 
@@ -24,15 +26,16 @@ var runSequence = require('run-sequence');
  * Load required Gulp tasks. These are installed based on the versions listed
  * in 'package.json' when you do 'npm install' in this directory.
  */
+var pkg                  = require('./package.json');
 var nib                  = require('nib');
 var rev                  = require('gulp-rev');
 var exec                 = require('gulp-exec');
 var size                 = require('gulp-size');
 var bump                 = require('gulp-bump');
 var help                 = require('gulp-help')(gulp);
+var cache                = require('gulp-cache');
 var gutil                = require('gulp-util');
 var bower                = require('gulp-bower');
-var ngmin                = require('gulp-ngmin');
 var clean                = require('gulp-clean');
 var karma                = require('gulp-karma');
 var watch                = require('gulp-watch');
@@ -48,13 +51,16 @@ var nodemon              = require('gulp-nodemon');
 var ghPages              = require("gulp-gh-pages");
 var refresh              = require('gulp-livereload');
 var cdnizer              = require("gulp-cdnizer");
+var bytediff             = require('gulp-bytediff');
 var htmlhint             = require("gulp-htmlhint");
 var imagemin             = require('gulp-imagemin');
 var minifyCss            = require('gulp-minify-css');
-var changelog            = require('gulp-conventional-changelog');
+var preprocess           = require('gulp-preprocess');
 var protractor           = require("gulp-protractor").protractor;
 var ngConstant           = require('gulp-ng-constant');
 var minifyHtml           = require('gulp-minify-html');
+var sourcemaps           = require('gulp-sourcemaps');
+var ngAnnotate           = require('gulp-ng-annotate');
 var autoprefixer         = require('gulp-autoprefixer');
 var templateCache        = require('gulp-angular-templatecache');
 var coverageEnforcer     = require("gulp-istanbul-enforcer");
@@ -80,11 +86,11 @@ var ENV                  = !!argv.env ? argv.env : 'development';
 var COLORS               = gutil.colors;
 var BROWSERS             = !!argv.browsers ? argv.browsers : 'PhantomJS';
 var CDN_BASE             = !!argv.nocdn ? DEVELOPMENT_URL : PRODUCTION_CDN_URL;
-var MODULE_NAME          = 'ojng';
+var MODULE_NAME          = pkg.name;
 var API_VERSION          = '1.0';
 var GIT_REMOTE_URL       = 'https://'+ process.env.GH_TOKEN +'@github.com/martinmicunda/employee-scheduling.git'; // git@github.com:martinmicunda/employee-scheduling.git
 var LIVERELOAD_PORT      = 35729;
-var TEMPLATE_BASE_PATH   = 'templates';
+var TEMPLATE_BASE_PATH   = 'app';
 var BUILD_WITHOUT_TEST   = !!argv.notest ? true : false;
 var APPLICATION_BASE_URL = ENV === 'development' ? DEVELOPMENT_URL : PRODUCTION_URL;
 
@@ -121,6 +127,22 @@ gutil.log(gutil.colors.blue('********** RUNNING IN ' + ENV + ' ENVIROMENT ******
 
 
 //=============================================
+//            UTILS FUNCTIONS
+//=============================================
+
+function bytediffFormatter(data) {
+    var difference = (data.savings > 0) ? ' smaller.' : ' larger.';
+    return COLORS.yellow(data.fileName + ' went from '
+        + (data.startSize / 1000).toFixed(2) + ' kB to ' + (data.endSize / 1000).toFixed(2) + ' kB'
+        + ' and is ' + formatPercent(1-data.percent, 2) + '%' + difference);
+}
+
+function formatPercent(num, precision){
+    return (num*100).toFixed(precision);
+}
+
+
+//=============================================
 //            DECLARE PATHS
 //=============================================
 
@@ -148,13 +170,13 @@ var paths = {
         styles:         'client/src/styles/**/*.styl',
         images:         'client/src/images/**/*.{png,gif,jpg,jpeg}',
         fonts:          'client/src/fonts/**/*',
-        scripts:        ['client/src/app/**/*.js', '!client/src/app/config/config-env.js', '!client/src/app/**/*_test.js'],
+        scripts:        ['client/src/app/**/*.js', '!client/src/app/core/config/env/config-env.js', '!client/src/app/**/*_test.js'],
         html:           'client/src/*.html',
         templates:      'client/src/app/**/*.html',
         config: {
-            basePath:   'client/src/app/config/',
-            file:       'client/src/app/config/config-env.json',
-            template:   'client/src/app/config/config.tpl.ejs'
+            basePath:   'client/src/app/core/config/env/',
+            file:       'client/src/app/core/config/env/config-env.json',
+            template:   'client/src/app/core/config/env/config.tpl.ejs'
         },
         test: {
             unit:       'client/src/app/**/*_test.js',
@@ -215,22 +237,18 @@ var paths = {
 //=============================================
 
 /**
- * We read in our 'package.json' file so we can access the package name and
- * version. It's already there, so we don't repeat ourselves here.
- */
-var pkg = require('./package.json');
-
-/**
  * The banner is the comment that is placed at the top of our compiled
  * source files. It is first processed as a Grunt template, where the `<%=`
  * pairs are evaluated based on this very configuration object.
  */
-var banner = ['/**',
-    ' * Employee Scheduling v<%= pkg.version %> (<%= pkg.homepage %>)',
-    ' * Copyright <%= date.getFullYear() %>(c) <%= pkg.author %>',
-    ' * Licensed under <%= pkg.license %>',
-    ' */',
-    ''].join('\n');
+var banner = gutil.template('/**\n' +
+    ' * <%= pkg.description %>\n' +
+    ' * @version v<%= pkg.version %> - <%= today %>\n' +
+    ' * @link <%= pkg.homepage %>\n' +
+    ' * @author <%= pkg.author.name %>\n' +
+    ' * @copyright <%= year %>(c) <%= pkg.author.name %>\n' +
+    ' * @license <%= pkg.licenses.type %>, <%= pkg.licenses.url %>\n' +
+    ' */\n', {file: '', pkg: pkg, today: new Date().toISOString().substr(0, 10), year: new Date().toISOString().substr(0, 4)});
 
 
 //=============================================
@@ -386,11 +404,11 @@ gulp.task('htmlhint', 'Hint HTML files', function () {
  */
 gulp.task('images', 'Minify the images', function () {
     return gulp.src(paths.client.images)
-        .pipe(imagemin({
+        .pipe(cache(imagemin({
             optimizationLevel: 5,
             progressive: true,
             interlaced: true
-        }))
+        })))
         .pipe(gulp.dest(paths.build.dist.client.images))
         .pipe(size());
 });
@@ -421,7 +439,7 @@ gulp.task('templates', 'Minify html templates and create template cache js file'
  */
 gulp.task('compile', 'Does the same as \'stylus\', \'jshint:client\', \'jshint:server\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
     ['stylus', 'jshint:client', 'jshint:server', 'htmlhint', 'images', 'templates'], function () {
-        var projectHeader = header(banner, { pkg : pkg, date: new Date } );
+        var projectHeader = header(banner);
 
         return gulp.src(paths.client.html)
             .pipe(inject(gulp.src(paths.tmp.scripts + 'templates.js', {read: false}),
@@ -430,15 +448,16 @@ gulp.task('compile', 'Does the same as \'stylus\', \'jshint:client\', \'jshint:s
                     ignorePath: [paths.tmp.basePath]
                 }
             ))
+            .pipe(preprocess({context: { NODE_ENV: 'production'}})) // remove livereload library for production
             .pipe(usemin({
                 css:        [cdnizer({defaultCDNBase: CDN_BASE, relativeRoot: 'assets/styles', files: ['**/*.{gif,png,jpg,jpeg}']}), autoprefixer('last 2 version'), minifyCss(), rev(), projectHeader],
                 css_libs:   [minifyCss(), rev()],
-                js:         [ngmin(), uglify(), rev(), projectHeader],
-                js_libs:    [uglify(), rev()],
-                html:       [cdnizer({defaultCDNBase: CDN_BASE, files: ['**/*.{js,css}']}), minifyHtml()]
+                js:         [sourcemaps.init(), ngAnnotate({add: true, single_quotes: true, stats: true}), bytediff.start(), uglify(), bytediff.stop(bytediffFormatter), sourcemaps.write(), rev(), projectHeader],
+                js_libs:    [bytediff.start(), uglify(), bytediff.stop(bytediffFormatter), rev()],
+                html:       [cdnizer({defaultCDNBase: CDN_BASE, files: ['**/*.{js,css}']}), minifyHtml({empty:true})]
             }))
             .pipe(gulp.dest(paths.build.dist.client.basePath))
-            .pipe(size());
+            .pipe(size({showFiles: true}));
 });
 
 /**
@@ -523,16 +542,6 @@ gulp.task('config:prod', 'Configuration Angular app for production environment (
             constants: { ENV: {'name': 'production', 'apiVersion': API_VERSION, templateBasePath: TEMPLATE_BASE_PATH + '/', 'cdnBaseUrl': CDN_BASE} }
         }))
         .pipe(gulp.dest(paths.client.config.basePath));
-});
-
-/**
- * Increase version number in package.json & bower.json.
- */
-gulp.task('bump', 'Increase version number in package.json & bower.json', function () {
-    return gulp
-        .src(['package.json', 'bower.json'])
-        .pipe(bump())
-        .pipe(gulp.dest(paths.build.dist.client.basePath));
 });
 
 /**
@@ -697,14 +706,17 @@ gulp.task('bump', 'Bump version number in package.json & bower.json', ['stylus',
 /**
  * Generate changelog.
  */
-gulp.task('changelog','Generate changelog', function () {
-    return gulp.src(['package.json', 'CHANGELOG.md']) // pass package.json to read data-from
-        .pipe(changelog())
-        .pipe(gulp.dest('.'))
-        .on('error', function (err) {
+gulp.task('changelog', 'Generate changelog', function(callback) {
+    changelog({
+        version: pkg.version,
+        repository: 'https://github.com/martinmicunda/' + pkg.name
+    }, function(err, data) {
+        if (err) {
             gutil.log(COLORS.red('Error: Failed to generate changelog ' + err));
             return process.exit(1);
-        });
+        }
+        fs.writeFileSync('CHANGELOG.md', data, callback());
+    });
 });
 
 /**

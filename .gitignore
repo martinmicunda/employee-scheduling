@@ -16,7 +16,11 @@ results
 npm-debug.log
 node_modules
 
-# WebStorm files
+# DevOps
+*.box
+.vagrant
+
+# IDEs
 .idea/
 
 # 3rd dependencies

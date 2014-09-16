@@ -1,0 +1,13 @@
+---
+# Use this file to override default configuration
+# that lives in `defaults` folders
+
+# -----------------------------------------------------------------------------
+# Nginx
+# -----------------------------------------------------------------------------
+# default values you can overwrite with documentation:
+# https://github.com/martinmicunda/ansible-role-nginx/#role-variables
+# -----------------------------------------------------------------------------
+nginx_path: /home/{{ansible_user_id}}/employee-scheduling-web/client/src
+#nginx_log_path: /home/{{ansible_user_id}}/employee-scheduling/logs/nginx/
+nginx_server_name: dev.employee-scheduling

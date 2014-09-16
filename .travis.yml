@@ -4,8 +4,6 @@ node_js:
 
 #notifications:
 #  email:
-#    recipients:
-#      - martinmicunda@hotmail.com
 #    on_success: never
 #    on_failure: always
 #

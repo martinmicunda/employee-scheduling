@@ -1,0 +1,17 @@
+// In JavaScript Application Design book on page 249 look at diagram  ...
+--lib/
+    user.model.js
+    user.controller.js
+    user.route.js
+--test/
+--index.js
+
+move rhat from API as this will more module oriented
+
+
+http://vimeo.com/89258863 --> Eric Elliott - Modular JavaScript With npm and Node Modules
+When use object?
+User data
+Domain objects
+
+anywhere else use functional javascript

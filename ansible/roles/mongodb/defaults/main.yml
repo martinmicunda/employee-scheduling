@@ -1,0 +1,22 @@
+---
+# File: main.yml
+# Type: defaults
+# Part: MongoDB
+
+# version
+mongodb_version: 2.6.4
+
+# User and group
+mongodb_user: "mongodb"
+mongodb_group: "mongodb"
+
+# Network configuration
+mongodb_bind_ip: "127.0.0.1"
+mongodb_port: 27017
+
+# Default base directory (without trailing '/')
+mongodb_path: "/var/lib/mongodb"
+# the directory prefix where the database files would be stored
+mongodb_data_path: "{{ mongodb_path }}/data/"
+# the directory prefix where the database log would be stored
+mongodb_log_path: "/var/log/mongodb/mongod.log"

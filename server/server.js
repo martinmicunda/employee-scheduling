@@ -56,5 +56,18 @@ mongodb(config.get('mongodb'), function startServer() {
     });
 });
 
+// https://github.com/onmodulus/modulus-cli/blob/master/lib%2Fmodulus.js
+//modulus.printHeader = function() {
+//    modulus.io.print('   __    __   ______   _____    __  __   __       __  __   ______   '.verbose);
+//    modulus.io.print('  /\\ "-./  \\ /\\  __ \\ /\\  __-. /\\ \\/\\ \\ /\\ \\     /\\ \\/\\ \\ /\\  ___\\  '.verbose);
+//    modulus.io.print('  \\ \\ \\-./\\ \\\\ \\ \\/\\ \\\\ \\ \\/\\ \\\\ \\ \\_\\ \\\\ \\ \\____\\ \\ \\_\\ \\\\ \\___  \\ '.verbose);
+//    modulus.io.print('   \\ \\_\\ \\ \\_\\\\ \\_____\\\\ \\____- \\ \\_____\\\\ \\_____\\\\ \\_____\\\\/\\_____\\'.verbose);
+//    modulus.io.print('    \\/_/  \\/_/ \\/_____/ \\/____/  \\/_____/ \\/_____/ \\/_____/ \\/_____/'.verbose);
+//    modulus.io.print('');
+//    modulus.io.print('     Providing all the awesomeness that is Modulus, in a CLI.'.verbose);
+//    modulus.io.print('     https://modulus.io/codex/cli/using_the_cli'.verbose);
+//    modulus.io.print('');
+//};
+
 // Expose app
 exports = module.exports = app;

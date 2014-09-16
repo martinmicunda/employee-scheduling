@@ -1,0 +1,16 @@
+# development hosts
+
+[webservers]
+web ansible_ssh_host=192.168.33.10
+
+[apiservers]
+api ansible_ssh_host=192.168.33.11
+
+[dbservers]
+db ansible_ssh_host=192.168.33.12
+
+# this guarantee that vars from group_vars/development would be loaded (Note: a keyword `development` is mapping hack here to file in group_vars/ folder)
+[development:children]
+webservers
+apiservers
+dbservers

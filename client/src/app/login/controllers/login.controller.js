@@ -5,6 +5,8 @@
      * @ngInject
      */
     function LoginCtrl($state, $scope, Authentication, LocalStorageService) {
+        // Capture the 'this' context of the controller using vm, standing for ViewModel.
+        // Use it to avoid having to call bind and unnecessary scoping issues.
         var vm = this;
         vm.submitted = false;
         vm.user = LocalStorageService.getUser();

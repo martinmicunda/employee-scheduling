@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO: check this gulpfile https://github.com/angular/material/blob/master/gulpfile.js and also John pappa gulp file!!!
 //=============================================
 //            DECLARE CORE VARIABLES
 //=============================================

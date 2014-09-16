@@ -2,7 +2,7 @@
 
 var jwt = require('jsonwebtoken');
 var expressJwt  = require('express-jwt');
-
+// TODO: look how chico did redis he create two modes one for chatting and other for store
 //var redisClient = require('../config/redis').redisClient;
 
 var TOKEN_EXPIRATION = 60;

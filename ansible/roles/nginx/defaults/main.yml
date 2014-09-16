@@ -1,0 +1,30 @@
+---
+apt_cache_valid_time: 3600
+
+# Network configuration
+nginx_bind_address: "*"
+nginx_port_http: 80
+nginx_port_https: 443
+
+nginx_worker_processes: 2
+nginx_pid: /var/run/nginx.pid
+nginx_worker_connections: 768
+
+# User and group
+nginx_user: "www-data"
+nginx_group: "www-data"
+
+# Server name
+nginx_server_name: myapp.com
+
+# Default base directory where are your public files stored? (without trailing '/')
+nginx_path: "/var/www"
+
+# Log dir (with '/' in the end)
+nginx_log_path: /var/log/nginx/
+
+# Default api route
+nginx_api_base_route: api/
+
+# Proxy pass (without 'http://')
+nginx_upstream_server: localhost:3000

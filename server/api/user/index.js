@@ -9,5 +9,5 @@ module.exports = function(app) {
         usersRoute.post('/', user.create);
         usersRoute.get('/', user.get);
 
-    app.use('/api/users', auth.isAuthenticated(), usersRoute);
+    app.use('/api/users', usersRoute);
 };

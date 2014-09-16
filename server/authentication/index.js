@@ -13,4 +13,10 @@ module.exports = function(app) {
     router.use('/local', require('./local'));
 
     app.use('/auth', router);
+
+//    Notes:
+//        POST http://your.api.com/authentication for login
+//        DELETE http://your.api.com/authentication for logout
 };
+
+// check this https://github.com/onmodulus/modulus-cli/blob/master/lib%2Fcontrollers%2Fuser.js

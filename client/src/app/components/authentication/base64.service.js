@@ -5,7 +5,7 @@
      * @ngInject
      */
     function Base64() {
-
+        // TODO: add base 64 http://stackoverflow.com/questions/246801/how-can-you-encode-a-string-to-base64-in-javascript/247261#247261
         return {
             // this is used to parse the user profile
             decode: function(str) {

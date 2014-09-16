@@ -1,0 +1,88 @@
+---
+##
+# Install Nginx
+##
+
+- name: Install Nginx
+  apt: >
+    pkg=nginx
+    state=present
+    update_cache=yes
+    cache_valid_time={{ apt_cache_valid_time }}
+
+##
+# Create log directory
+##
+# TODO: (martin) This is not working for custom log directive.. why when I restart vagrant it doesn't start nginx automatically.
+# it seems that when I restart vagrant it doesn't mount cutom log directory from share folder
+- name: Create Nginx log directory
+  file: >
+    path="{{ nginx_log_path }}"
+    state=directory
+    mode=700
+    owner={{ nginx_user }}
+    group={{ nginx_group }}
+  notify:
+    - restart nginx
+  when: "'{{ nginx_log_path }}' != '/var/log/nginx/'"
+
+##
+# Grant Permission for directory
+##
+
+- name: Grant Permission
+  file: >
+    state=directory
+    dest={{ nginx_path }}
+    mode=700
+    owner={{ nginx_user }}
+    group={{ nginx_group }}
+  when: "'{{ nginx_path }}' != '/var/www'"
+
+##
+# Configure Nginx
+##
+
+- name: Setup configuration file
+  template: >
+    src=nginx.conf.j2
+    dest=/etc/nginx/nginx.conf
+    owner=root
+    group={{ nginx_group }}
+    mode=0644
+  notify:
+    - restart nginx
+
+- name: Create the new Virtual Host
+  template: >
+    src=./sites-available/default.conf.j2
+    dest=/etc/nginx/sites-available/{{ nginx_server_name }}
+    owner=root
+    group={{ nginx_group }}
+    mode=0644
+  notify:
+    - restart nginx
+
+- name: Activate the new Virtual Host (create symlinks)
+  file: >
+    src=/etc/nginx/sites-available/{{ nginx_server_name }}
+    dest=/etc/nginx/sites-enabled/{{ nginx_server_name }}
+    state=link
+  notify:
+    - restart nginx
+
+- name: Remove the default Virtual Host
+  file: path=/etc/nginx/sites-{{ item }}/default state=absent
+  with_items:
+    - enabled
+    - available
+  notify:
+    - restart nginx
+
+##
+# Ensure that the Nginx is started
+##
+
+- name: Ensure that the Nginx service is started on a fresh reboot
+  service: name=nginx state=started enabled=yes
+  sudo: yes

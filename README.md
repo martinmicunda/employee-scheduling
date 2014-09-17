@@ -13,7 +13,7 @@ An employee scheduling application that makes employee scheduling and management
 - [Directory Layout](#directory-layout)
 - [Installation & Configuration](#installation-and-configuration)
     - [Platform & Tools](#platform-and-tools)
-    - [Installation](#app)
+    - [Installation](#installation)
 - [Running App](#running-app)
     - [Development](#development) 
     - [Debugging](#debugging) 

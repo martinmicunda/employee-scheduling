@@ -35,6 +35,8 @@ An employee scheduling application that makes employee scheduling and management
 ###<a name="diagram-development"> Development
 ![Development Architecture Diagram](employee-scheduling-development.png "Development Architecture Diagram")
 
+The Docker provider allows Vagrant to manage development environments that run within containers, rather than virtual machines. This works without any additional software required on Linux, Mac OS X, and Windows. On platforms that don't support Linux Containers natively such as Mac OS X and Windows, Vagrant is smart enough to detect these cases and automatically spins up a Linux virtual machine to run the Docker containers. Vagrant then shares this virtual machine for all Docker-based development environments with Vagrant. That means with just a single virtual machine, Vagrant can manage many Docker environments.
+
 ###<a name="diagram-production"> Production
 
 ##<a name="directory-layout"></a> Directory Layout

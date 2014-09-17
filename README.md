@@ -1,11 +1,27 @@
-[![Build Status](https://secure.travis-ci.org/martinmicunda/employee-scheduling.png)](http://travis-ci.org/martinmicunda/employee-scheduling) [![Dependency Status](https://david-dm.org/martinmicunda/employee-scheduling.png)](https://david-dm.org/martinmicunda/employee-scheduling) [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling/dev-status.png)](https://david-dm.org/martinmicunda/employee-scheduling#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/martinmicunda/employee-scheduling/badge.png?branch=master)](https://coveralls.io/r/martinmicunda/employee-scheduling?branch=master)
 
 Employee Scheduling
 ===================
+[![Build Status](https://secure.travis-ci.org/martinmicunda/employee-scheduling.png)](http://travis-ci.org/martinmicunda/employee-scheduling) [![Dependency Status](https://david-dm.org/martinmicunda/employee-scheduling.png)](https://david-dm.org/martinmicunda/employee-scheduling) [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling/dev-status.png)](https://david-dm.org/martinmicunda/employee-scheduling#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/martinmicunda/employee-scheduling/badge.png?branch=master)](https://coveralls.io/r/martinmicunda/employee-scheduling?branch=master)
 
 An employee scheduling application that makes employee scheduling and management easy, fast and mobile.
 
 ## Table of Contents
+- [Technologies Used](#technologies-used)
+- [Architecture Diagram](#architecture-diagram)
+    - [Development](#diagram-development)
+    - [Production](#diagram-production)
+- [Directory Layout](#directory-layout)
+- [Installation & Configuration](#installation-and-configuration)
+    - [Platform & Tools](#platform-and-tools)
+    - [Installation](#app)
+- [Running App](#running-app)
+    - [Development](#development) 
+    - [Debugging](#debugging) 
+- [Vagrant](#vagrant)
+- [Ansible](#ansible)
+- [Versioning](#versioning)
+- [FAQ](#faq)
+- [License](#license)
 
 ## Technologies Used
 | Client Side | Server Side | DevOps | Test | 
@@ -16,8 +32,8 @@ An employee scheduling application that makes employee scheduling and management
 | [Bootstrap 3](http://getbootstrap.com/) ![Bootstrap](https://avatars2.githubusercontent.com/u/2918581?s=25) | | [Vagrant](http://www.vagrantup.com/) <img src="https://www.hashicorp.com/images/blog/a-new-look-for-vagrant/logo-8b7a4912.png" height="30" width="35" /> &nbsp; [AWS](http://aws.amazon.com/) <img src="https://a0.awsstatic.com/main/images/logos/aws_logo.png" height="30" width="80"> |
 
 ## Architecture Diagram
-### Development
-### Production
+###<a name="diagram-development"> Development
+###<a name="diagram-production"> Production
 
 ##<a name="directory-layout"></a> Directory Layout
 
@@ -106,10 +122,10 @@ api                       running (virtualbox)
 db                        running (virtualbox)
 ```
 Now you should be able to ssh into any of those boxes:
-```
-vagrant ssh web  # ssh to web server
-vagratn ssh api  # ssh to api server
-vagrant ssh db   # ssh to db server
+```bash
+$ vagrant ssh web  # ssh to web server
+$ vagratn ssh api  # ssh to api server
+$ vagrant ssh db   # ssh to db server
 ```
 To make it easier to type, following aliases have been added to your `/etc/hosts` file:
 ```
@@ -121,7 +137,34 @@ Finally, open up your browser and navigate to [http://dev.employee-scheduling](h
 
 ## Running App
 ### Development
+To start the server you need to ssh into `api` box:
+```bash
+$ vagrant ssh api
+$ cd server
+$ node server.js
+```
+Open up your browser and navigate to [http://dev.employee-scheduling](http://dev.employee-scheduling) or [http://192.168.33.10](http://192.168.33.10) to connect to your local environment.
+
 ### Debugging
+To start the server in debugging mode you need to ssh into `api` box:
+```bash
+$ vagrant ssh api -- -L 5858:127.0.0.1:5858 #setup ssh proxy to VM
+$ cd server
+$ node --debug server.js # start server in debug mode
+```
+Run the following from your HOST machine, not your vagrant box:
+```bash
+$ telnet 127.0.0.1 5858
+```
+You should get a response like: 
+```bash
+Type: connect
+V8-Version: 3.14.5.9
+Protocol-Version: 1
+Embedding-Host: node v0.10.28
+Content-Length: 0
+```
+Now you can debugging `api` node.js session remotely using [WebStorm](http://www.jetbrains.com/webstorm/) or [Node Inspector](https://github.com/node-inspector/node-inspector).
 
 ## Vagrant 
 There’s a ton of commands you can use to talk to Vagrant. For a full list see the [official docs](http://docs.vagrantup.com/v2/cli/), but here are the more common ones.

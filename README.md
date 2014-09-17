@@ -130,19 +130,19 @@ There’s a ton of commands you can use to talk to Vagrant. For a full list see 
 ## Ansible
 To get better understanding how Ansible works check the [official docs](http://docs.ansible.com/). Ansible installs the following software:
 
-* web box:
+* **web box:**
 	* git
 	* node.js
 	* npm
 	* nginx
 	* gulp
 	* bower
-* api box:
+* **api box:**
 	* git
 	* node.js
 	* npm
 	* gulp
-* db box:
+* **db box:**
 	* git 
 	* couchbase
 

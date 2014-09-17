@@ -44,7 +44,7 @@ $ git clone git@github.com:martinmicunda/employee-scheduling.git
 $ cd employee-scheduling
 ```
 
-**2.** The following command would add a new `trusty64` box, and if an existing one is found, it will override it:
+**2.** The following command would add a new `ubuntu trusty64 box`, and if an existing one is found, it will override it:
 
 ```bash
 $ vagrant box add trusty64 http://files.vagrantup.com/trusty64.box --force
@@ -57,7 +57,7 @@ Verify that box was installed by running the `list` subcommand that will list th
 $ vagrant box list
 ubuntu/trusty64  (virtualbox, 14.04)
 ```
-**3.** The following command would install a vagrant plugins for this project, and if an existing one is found, it will override it:
+**3.** The following command would install a `vagrant plugins` for this project, and if an existing one is found, it will override it:
 
 ```bash
 $ bash bin/vagrant-install-plugins.sh
@@ -69,7 +69,7 @@ $ vagrant plugin list
 vagrant-hostmanager (1.5.0)
 ```
  
-**4.** The following command would install an ansible roles for this project, and if an existing one is found, it will override it:
+**4.** The following command would install an `ansible roles` for this project, and if an existing one is found, it will override it:
 
 ```bash
 $ bash bin/ansible-install-roles.sh
@@ -83,7 +83,7 @@ martinmicunda.common, v1.0.0
 martinmicunda.gulp, v1.0.0
 martinmicunda.nodejs, v1.0.1
 ```
-**5.** Now, run `vagrant up` that will create 3 virtual machines and provisioning each of these machines. 
+**5.** Now, run `vagrant up` that will create `3 virtual machines` and provisioning each of these machines. 
 
 ```bash
 $ vagrant up
@@ -118,14 +118,35 @@ Finally, open up your browser and navigate to [http://dev.employee-scheduling](h
 ### Debugging
 
 ## Vagrant 
-Some Basic Commands:
+There’s a ton of commands you can use to talk to Vagrant. For a full list see the [official docs](http://docs.vagrantup.com/v2/cli/), but here are the more common ones.
 
 * `vagrant up` - use this command to `start` your virtual environment
-* `vagrant suspend` - use this command to `suspend` your virtual environment
+* `vagrant halt` - use this command to `stop` your virtual environment
+* `vagrant suspend` - use this command to `pause` your virtual environment, make sure you do this before shutting down your computer to safely be able to restore the environment later.
+* `vagrant destroy` - use this command to `removes` your virtual environment from your machine
+* `vagrant reload` - use this command to your virtual environment, if you add the `--provision` flag, it will reprovision the box as well; this is useful with removing or adding things to the server via Ansible.
+* `vagrant ssh` - use this command to `connect` to the virtual server
 
 ## Ansible
-Ansible installs the following software:
+To get better understanding how Ansible works check the [official docs](http://docs.ansible.com/). Ansible installs the following software:
 
+* web box:
+	* git
+	* node.js
+	* npm
+	* nginx
+	* gulp
+	* bower
+* api box:
+	* git
+	* node.js
+	* npm
+	* gulp
+* db box:
+	* git 
+	* couchbase
+
+The `couchbase` and `nginx` services are started after provisioning takes place.
 
 ## Versioning
 
@@ -147,18 +168,47 @@ For more information on SemVer, please visit <http://semver.org/>.
 ```bash
 $ vagrant destroy
 ```
-**2.** The following command would uninstall an ansible roles for this project:
+**2.** The following command would uninstall an `ansible roles` for this project:
 ```bash
 $ bash bin/ansible-uninstall-roles.sh
 ```
-**3.** The following command would uninstall a vagrant plugins for this project:
+**3.** The following command would uninstall a `vagrant plugins` for this project:
 ```bash
 $ bash bin/vagrant-uninstall-plugins.sh
 ```
-**4.** The following command would remove  `trusty64` box:
+**4.** The following command would remove  `trusty64 box`:
 ```bash
 $ vagrant box remove trusty64
 ```
+###What if I want a fresh install?
+If you wish to destroy the `web`, `api` and `db` virtual boxes to make sure you have a fresh start, you can do these steps:
+```bash
+ $ vagrant destroy 
+ $ vagrant up
+```
+
+Note that we are avoiding destruction of the cache host. No need to do so.
+
+###What if I want different IP addresses for my hosts with Vagrant?
+In the [`Vagrantfile`](Vagrantfile) you find this section:
+
+    servers = {
+                "web" => "192.168.33.10",
+                "app" => "192.168.33.11",
+                "db"  => "192.168.33.12",
+              }
+
+This is where the IP addresses of the machines are defined. You can change those to some other private addresses that you may prefer.
+
+Please note that you will also have to edit the [`inventories/development`](inventories/development) file,
+specfically this section:
+
+	[all-hosts]
+	web ansible_ssh_host=192.168.33.10
+	api ansible_ssh_host=192.168.33.11
+	db  ansible_ssh_host=192.168.33.12
+
+Adjust the IP addresses to whatever values you have chosen in [`Vagrantfile`](Vagrantfile).
 
 ## License
 

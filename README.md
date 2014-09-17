@@ -16,17 +16,17 @@ An employee scheduling application that makes employee scheduling and management
 ##<a name="directory-layout"></a> Directory Layout
 
     ansible/ 
-      |- group_vars/           --> group variables
+      |- group_vars/           --> ansible group variables
 	  |  |- all                  --> variables for all groups
       |  |- development          --> variables for development group
-      |- inventories/          --> inventories files (hosts) for different environments
+      |- inventories/          --> ansible inventories files (hosts) for different environments
       |  |- development          --> inventory file (hosts) for development servers
       |  |- production           --> inventory file (hosts) for production servers
       |  |- staging              --> inventory file (hosts) for staging servers            
-      |- apiservers.yml        --> playbook for apiserver tier
-      |- dbservers.yml         --> playbook for dbserver tier
-      |- vagrant.yml           --> master playbook for Vagrant environment
-      |- webservers.yml        --> playbook for webserver tier
+      |- apiservers.yml        --> ansible playbook for apiserver tier
+      |- dbservers.yml         --> ansible playbook for dbserver tier
+      |- vagrant.yml           --> ansible master playbook for Vagrant environment
+      |- webservers.yml        --> ansible playbook for webserver tier
       
 ##<a name="installation-and-configuration"></a> Installation & Configuration
 ###<a name="platform-and-tools"></a> Platform & Tools
@@ -186,8 +186,6 @@ If you wish to destroy the `web`, `api` and `db` virtual boxes to make sure you 
  $ vagrant destroy 
  $ vagrant up
 ```
-
-Note that we are avoiding destruction of the cache host. No need to do so.
 
 ###What if I want different IP addresses for my hosts with Vagrant?
 In the [`Vagrantfile`](Vagrantfile) you find this section:

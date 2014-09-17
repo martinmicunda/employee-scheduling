@@ -33,6 +33,8 @@ An employee scheduling application that makes employee scheduling and management
 
 ## Architecture Diagram
 ###<a name="diagram-development"> Development
+![Development Architecture Diagram](employee-scheduling-development.png "Development Architecture Diagram")
+
 ###<a name="diagram-production"> Production
 
 ##<a name="directory-layout"></a> Directory Layout

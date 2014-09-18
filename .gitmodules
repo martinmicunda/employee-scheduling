@@ -1,0 +1,3 @@
+[submodule "ui"]
+	path = ui
+	url = git@github.com:martinmicunda/employee-scheduling-ui.git

@@ -10,10 +10,11 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+PROJECT_NAME = "employee-scheduling"
+
+
 # This Vagrant environment requires Vagrant 1.6.0 or higher.
 Vagrant.require_version ">= 1.6.0"
-
-PROJECT_NAME = "employee-scheduling"
 
 unless Vagrant.has_plugin?("vagrant-hostmanager")
     raise 'Vagrant-hostmanager is not installed! Please run `vagrant plugin install vagrant-hostmanager` before continuing`.'
@@ -45,8 +46,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.define server_name do |server_conf|
             server_conf.vm.hostname = server_name
             server_conf.vm.network "private_network", ip: server_ip
-            server_conf.vm.synced_folder ".", "/home/vagrant/" + PROJECT_NAME + "-" + server_name
-            server_conf.hostmanager.aliases = ["www.dev." + PROJECT_NAME, "dev." + PROJECT_NAME]
+            server_conf.vm.synced_folder "./" + server_name, "/home/vagrant/" + server_name
+            server_conf.hostmanager.aliases = ["www.dev." + PROJECT_NAME  + ".com", "dev." + PROJECT_NAME + ".com"]
         end
     end
 

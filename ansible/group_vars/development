@@ -10,4 +10,4 @@
 # -----------------------------------------------------------------------------
 nginx_path: /home/{{ansible_user_id}}/employee-scheduling-web/client/src
 #nginx_log_path: /home/{{ansible_user_id}}/employee-scheduling/logs/nginx/
-nginx_server_name: dev.employee-scheduling
+nginx_server_name: dev.employee-scheduling.com

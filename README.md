@@ -128,7 +128,7 @@ db                        running (virtualbox)
 ```
 Now you should be able to ssh into any of those boxes:
 ```bash
-$ vagrant ssh ui   # ssh to web server
+$ vagrant ssh ui   # ssh to ui server
 $ vagratn ssh api  # ssh to api server
 $ vagrant ssh db   # ssh to db server
 ```

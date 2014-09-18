@@ -1,12 +1,12 @@
 # development hosts
 
 [all-hosts]
-web ansible_ssh_host=192.168.33.10
+ui  ansible_ssh_host=192.168.33.10
 api ansible_ssh_host=192.168.33.11
 db  ansible_ssh_host=192.168.33.12
 
-[webservers]
-web
+[uiservers]
+ui
 
 [apiservers]
 api
@@ -16,6 +16,6 @@ db
 
 # this guarantee that vars from group_vars/development would be loaded (Note: a keyword `development` is mapping hack here to file in group_vars/ folder)
 [development:children]
-webservers
+uiservers
 apiservers
 dbservers

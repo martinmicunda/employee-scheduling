@@ -1,6 +1,6 @@
 ---
 # Main deployment Vagrant playbook. Deploys whole stack of servers.
 
-- include: webservers.yml
+- include: uiservers.yml
 - include: apiservers.yml
 - include: dbservers.yml

@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.include_offline = true
 
     servers = {
-                "web" => "192.168.33.10",
+                "ui"  => "192.168.33.10",
                 "app" => "192.168.33.11",
                 "db"  => "192.168.33.12",
               }

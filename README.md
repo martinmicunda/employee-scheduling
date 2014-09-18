@@ -32,12 +32,13 @@ An employee scheduling application that makes employee scheduling and management
 | [Bootstrap 3](http://getbootstrap.com/) ![Bootstrap](https://avatars2.githubusercontent.com/u/2918581?s=25) | | [Vagrant](http://www.vagrantup.com/) <img src="https://www.hashicorp.com/images/blog/a-new-look-for-vagrant/logo-8b7a4912.png" height="30" width="35" /> &nbsp; [AWS](http://aws.amazon.com/) <img src="https://a0.awsstatic.com/main/images/logos/aws_logo.png" height="30" width="80"> |
 
 ## Architecture Diagram
-###<a name="diagram-development"> Development
+###<a name="diagram-development"></a>Development
 ![Development Architecture Diagram](employee-scheduling-development.png "Development Architecture Diagram")
 
-The Docker provider allows Vagrant to manage development environments that run within containers, rather than virtual machines. This works without any additional software required on Linux, Mac OS X, and Windows. On platforms that don't support Linux Containers natively such as Mac OS X and Windows, Vagrant is smart enough to detect these cases and automatically spins up a Linux virtual machine to run the Docker containers. Vagrant then shares this virtual machine for all Docker-based development environments with Vagrant. That means with just a single virtual machine, Vagrant can manage many Docker environments.
+This architecture is running on my Macbook Pro. The laptop runs Vagrant  with three Docker containers (`UI` for static assets, `API` for Node.js application and `DB` for Couchbase database). The Docker provider allows Vagrant to manage development environments that run within containers, rather than virtual machines. This works without any additional software required on Linux, Mac OS X, and Windows. On platforms that don't support Linux Containers natively such as Mac OS X and Windows, Vagrant is smart enough to detect these cases and automatically spins up a Linux virtual machine to run the Docker containers. Vagrant then shares this virtual machine for all Docker-based development environments with Vagrant. That means with just a single virtual machine, Vagrant can manage many Docker environments.
 
-###<a name="diagram-production"> Production
+###<a name="diagram-production"></a>Production
+TODO: Add AWS diagram.
 
 ##<a name="directory-layout"></a> Directory Layout
 
@@ -109,31 +110,31 @@ martinmicunda.common, v1.0.0
 martinmicunda.gulp, v1.0.0
 martinmicunda.nodejs, v1.0.1
 ```
-**5.** Now, run `vagrant up` that will create `3 virtual machines` and provisioning each of these machines. 
+**5.** Now, run `vagrant up` that will create `3 Docker containers` and provisioning each of these containers. 
 
 ```bash
 $ vagrant up
 ```
 >**NOTE:** **Vagrant will provision the virtual machine only once on the first run, any subsequent provisioning must be executed with the** `--provision` **flag either** `vagrant up --provision` **or** `vagrant reload --provision` **. The provisioning will re-run also if you destroy the VM and rebuild it with** `vagrant destroy` **and** `vagrant up` **.**
 
-If there have been no errors when executing the above commands, the machines  `web`, `api` and `db` should be created. The following command would outputs status of the vagrant machine:
+If there have been no errors when executing the above commands, the machines  `ui`, `api` and `db` should be created. The following command would outputs status of the vagrant machine:
 
 ```bash
 $ vagrant status
 Current machine states:
-web                       running (virtualbox)
+ui                        running (virtualbox)
 api                       running (virtualbox)
 db                        running (virtualbox)
 ```
 Now you should be able to ssh into any of those boxes:
 ```bash
-$ vagrant ssh web  # ssh to web server
+$ vagrant ssh ui   # ssh to web server
 $ vagratn ssh api  # ssh to api server
 $ vagrant ssh db   # ssh to db server
 ```
 To make it easier to type, following aliases have been added to your `/etc/hosts` file:
 ```
-192.168.33.10   web www.dev.employee-scheduling dev.employee-scheduling
+192.168.33.10   ui www.dev.employee-scheduling dev.employee-scheduling
 192.168.33.11   app www.dev.employee-scheduling dev.employee-scheduling
 192.168.33.12   db www.dev.employee-scheduling dev.employee-scheduling
 ```
@@ -183,19 +184,19 @@ There’s a ton of commands you can use to talk to Vagrant. For a full list see 
 ## Ansible
 To get better understanding how Ansible works check the [official docs](http://docs.ansible.com/). Ansible installs the following software:
 
-* **web box:**
+* **UI box:**
 	* git
 	* node.js
 	* npm
 	* nginx
 	* gulp
 	* bower
-* **api box:**
+* **API box:**
 	* git
 	* node.js
 	* npm
 	* gulp
-* **db box:**
+* **DB box:**
 	* git 
 	* couchbase
 
@@ -244,7 +245,7 @@ If you wish to destroy the `web`, `api` and `db` virtual boxes to make sure you 
 In the [`Vagrantfile`](Vagrantfile) you find this section:
 
     servers = {
-                "web" => "192.168.33.10",
+                "ui"  => "192.168.33.10",
                 "app" => "192.168.33.11",
                 "db"  => "192.168.33.12",
               }
@@ -255,7 +256,7 @@ Please note that you will also have to edit the [`inventories/development`](inve
 specfically this section:
 
 	[all-hosts]
-	web ansible_ssh_host=192.168.33.10
+	ui  ansible_ssh_host=192.168.33.10
 	api ansible_ssh_host=192.168.33.11
 	db  ansible_ssh_host=192.168.33.12
 

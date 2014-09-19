@@ -67,8 +67,7 @@ You need to have installed follow tools on your machine:
 
 **1.** Clone this repository:
 ```bash
-$ git clone git@github.com:martinmicunda/employee-scheduling.git
-$ cd employee-scheduling
+$ git clone git@github.com:martinmicunda/employee-scheduling.git && cd $_
 ```
 
 **2.** The following command would add a new `ubuntu trusty64 box`, and if an existing one is found, it will override it:

@@ -4,3 +4,6 @@
 [submodule "api"]
 	path = api
 	url = git@github.com:martinmicunda/employee-scheduling-api.git
+[submodule "db"]
+	path = db
+	url = git@github.com:martinmicunda/employee-scheduling-db.git

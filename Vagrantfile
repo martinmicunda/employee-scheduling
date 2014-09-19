@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     servers = {
                 "ui"  => "192.168.33.10",
-                "app" => "192.168.33.11",
+                "api" => "192.168.33.11",
                 "db"  => "192.168.33.12",
               }
 
@@ -51,16 +51,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
     end
 
-    # Configure VM settings for servers running in VirtualBox
-    config.vm.provider "virtualbox" do |vb|
-        vb.memory = 1024
-        vb.cpus = 2
-    end
-
     # Provision the VirtualBoxes with Ansible
     config.vm.provision "ansible" do |ansible|
         ansible.playbook = "ansible/vagrant.yml"
         ansible.inventory_path = "ansible/inventories/development"
         ansible.raw_arguments = ['-v']
+    end
+
+    # Configure VM settings for servers running in VirtualBox
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = 1024
+        vb.cpus = 2
     end
 end

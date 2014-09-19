@@ -246,7 +246,7 @@ In the [`Vagrantfile`](Vagrantfile) you find this section:
 
     servers = {
                 "ui"  => "192.168.33.10",
-                "app" => "192.168.33.11",
+                "api" => "192.168.33.11",
                 "db"  => "192.168.33.12",
               }
 

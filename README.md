@@ -135,7 +135,7 @@ $ vagrant ssh db   # ssh to db server
 To make it easier to type, following aliases have been added to your `/etc/hosts` file:
 ```
 192.168.33.10   ui www.dev.employee-scheduling.com dev.employee-scheduling.com
-192.168.33.11   app www.dev.employee-scheduling.com dev.employee-scheduling.com
+192.168.33.11   api www.dev.employee-scheduling.com dev.employee-scheduling.com
 192.168.33.12   db www.dev.employee-scheduling.com dev.employee-scheduling.com
 ```
 Finally, open up your browser and navigate to [http://dev.employee-scheduling.com](http://dev.employee-scheduling.com) or [http://192.168.33.10](http://192.168.33.10) to connect to your local environment.

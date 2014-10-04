@@ -4,7 +4,7 @@ Employee Scheduling
 
 An employee scheduling application that makes employee scheduling and management easy, fast and mobile.
 
-**Note: This project is under development.**
+**Note: :warning: This project is under development.**
 
 ## Table of Contents
 - [Technologies Used](#technologies-used)

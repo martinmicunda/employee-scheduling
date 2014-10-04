@@ -1,9 +1,10 @@
 
 Employee Scheduling
 ===================
-[![Build Status](https://secure.travis-ci.org/martinmicunda/employee-scheduling.png)](http://travis-ci.org/martinmicunda/employee-scheduling) [![Dependency Status](https://david-dm.org/martinmicunda/employee-scheduling.png)](https://david-dm.org/martinmicunda/employee-scheduling) [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling/dev-status.png)](https://david-dm.org/martinmicunda/employee-scheduling#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/martinmicunda/employee-scheduling/badge.png?branch=master)](https://coveralls.io/r/martinmicunda/employee-scheduling?branch=master)
 
 An employee scheduling application that makes employee scheduling and management easy, fast and mobile.
+
+**Note: This project is under development.**
 
 ## Table of Contents
 - [Technologies Used](#technologies-used)
@@ -43,7 +44,7 @@ TODO: Add AWS diagram.
 ##<a name="directory-layout"></a> Directory Layout
 
     employee-scheduling
-      |- ansible/ 
+      |- ansible/               --> ansible files
       |  |- group_vars/           --> ansible group variables
       |  |  |- all                  --> variables for all groups
       |  |  |- development          --> variables for development group
@@ -55,9 +56,9 @@ TODO: Add AWS diagram.
       |  |- dbservers.yml         --> ansible playbook for dbserver tier
       |  |- vagrant.yml           --> ansible master playbook for Vagrant environment
       |  |- webservers.yml        --> ansible playbook for webserver tier
-      |- api			--> api submodule component  
-      |- db			--> db submodule component
-      |- ui			--> ui submodule component
+      |- api                    --> api submodule component  
+      |- db                     --> db submodule component
+      |- ui                     --> ui submodule component
       
 ##<a name="installation-and-configuration"></a> Installation & Configuration
 ###<a name="platform-and-tools"></a> Platform & Tools

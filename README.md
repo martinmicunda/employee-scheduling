@@ -1,9 +1,10 @@
 
 Employee Scheduling
 ===================
-[![Build Status](https://secure.travis-ci.org/martinmicunda/employee-scheduling.png)](http://travis-ci.org/martinmicunda/employee-scheduling) [![Dependency Status](https://david-dm.org/martinmicunda/employee-scheduling.png)](https://david-dm.org/martinmicunda/employee-scheduling) [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling/dev-status.png)](https://david-dm.org/martinmicunda/employee-scheduling#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/martinmicunda/employee-scheduling/badge.png?branch=master)](https://coveralls.io/r/martinmicunda/employee-scheduling?branch=master)
 
 An employee scheduling application that makes employee scheduling and management easy, fast and mobile.
+
+**Note: :warning: This project is under development.**
 
 ## Table of Contents
 - [Technologies Used](#technologies-used)
@@ -42,18 +43,22 @@ TODO: Add AWS diagram.
 
 ##<a name="directory-layout"></a> Directory Layout
 
-    ansible/ 
-      |- group_vars/           --> ansible group variables
-	  |  |- all                  --> variables for all groups
-      |  |- development          --> variables for development group
-      |- inventories/          --> ansible inventories files (hosts) for different environments
-      |  |- development          --> inventory file (hosts) for development servers
-      |  |- production           --> inventory file (hosts) for production servers
-      |  |- staging              --> inventory file (hosts) for staging servers            
-      |- apiservers.yml        --> ansible playbook for apiserver tier
-      |- dbservers.yml         --> ansible playbook for dbserver tier
-      |- vagrant.yml           --> ansible master playbook for Vagrant environment
-      |- webservers.yml        --> ansible playbook for webserver tier
+    employee-scheduling
+      |- ansible/               --> ansible files
+      |  |- group_vars/           --> ansible group variables
+      |  |  |- all                  --> variables for all groups
+      |  |  |- development          --> variables for development group
+      |  |- inventories/          --> ansible inventories files (hosts) for different environments
+      |  |  |- development          --> inventory file (hosts) for development servers
+      |  |  |- production           --> inventory file (hosts) for production servers
+      |  |  |- staging              --> inventory file (hosts) for staging servers            
+      |  |- apiservers.yml        --> ansible playbook for apiserver tier
+      |  |- dbservers.yml         --> ansible playbook for dbserver tier
+      |  |- vagrant.yml           --> ansible master playbook for Vagrant environment
+      |  |- webservers.yml        --> ansible playbook for webserver tier
+      |- api                    --> api submodule component  
+      |- db                     --> db submodule component
+      |- ui                     --> ui submodule component
       
 ##<a name="installation-and-configuration"></a> Installation & Configuration
 ###<a name="platform-and-tools"></a> Platform & Tools
@@ -65,12 +70,20 @@ You need to have installed follow tools on your machine:
 
 ###<a name="installation"></a> Installation
 
-**1.** Clone this repository:
+**1.** Clone main repository:
 ```bash
-$ git clone git@github.com:martinmicunda/employee-scheduling.git && cd $_
+=======
+$ git clone git@github.com:martinmicunda/employee-scheduling.git 
+$ cd employee-scheduling
 ```
 
-**2.** The following command would add a new `ubuntu trusty64 box`, and if an existing one is found, it will override it:
+**2.** Clone submodule repositories:
+```bash
+$ git submodule init
+$ git submodule update
+```
+
+**3.** The following command would add a new `ubuntu trusty64 box`, and if an existing one is found, it will override it:
 
 ```bash
 $ vagrant box add trusty64 http://files.vagrantup.com/trusty64.box --force
@@ -83,7 +96,7 @@ Verify that box was installed by running the `list` subcommand that will list th
 $ vagrant box list
 ubuntu/trusty64  (virtualbox, 14.04)
 ```
-**3.** The following command would install a `vagrant plugins` for this project, and if an existing one is found, it will override it:
+**4.** The following command would install a `vagrant plugins` for this project, and if an existing one is found, it will override it:
 
 ```bash
 $ bash bin/vagrant-install-plugins.sh
@@ -95,7 +108,7 @@ $ vagrant plugin list
 vagrant-hostmanager (1.5.0)
 ```
  
-**4.** The following command would install an `ansible roles` for this project, and if an existing one is found, it will override it:
+**5.** The following command would install an `ansible roles` for this project, and if an existing one is found, it will override it:
 
 ```bash
 $ bash bin/ansible-install-roles.sh
@@ -109,7 +122,7 @@ martinmicunda.common, v1.0.0
 martinmicunda.gulp, v1.0.0
 martinmicunda.nodejs, v1.0.1
 ```
-**5.** Now, run `vagrant up` that will create `3 Docker containers` and provisioning each of these containers. 
+**6.** Now, run `vagrant up` that will create `3 Docker containers` and provisioning each of these containers. 
 
 ```bash
 $ vagrant up

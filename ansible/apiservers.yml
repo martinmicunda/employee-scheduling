@@ -6,5 +6,4 @@
   sudo: yes
   roles:
     - role: martinmicunda.common
-    - role: martinmicunda.nodejs
-    - role: martinmicunda.gulp
+    - role: martinmicunda.iojs

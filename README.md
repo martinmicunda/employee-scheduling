@@ -72,7 +72,6 @@ You need to have installed follow tools on your machine:
 
 **1.** Clone main repository:
 ```bash
-=======
 $ git clone git@github.com:martinmicunda/employee-scheduling.git 
 $ cd employee-scheduling
 ```
@@ -121,6 +120,7 @@ martinmicunda.bower, v1.0.0
 martinmicunda.common, v1.0.0
 martinmicunda.gulp, v1.0.0
 martinmicunda.nodejs, v1.0.1
+martinmicunda.iojs, v1.0.0
 ```
 **6.** Now, run `vagrant up` that will create `3 Docker containers` and provisioning each of these containers. 
 
@@ -157,8 +157,8 @@ Finally, open up your browser and navigate to [http://dev.employee-scheduling.co
 To start the server you need to ssh into `api` box:
 ```bash
 $ vagrant ssh api
-$ cd server
-$ node server.js
+$ cd api
+$ npm start
 ```
 Open up your browser and navigate to [http://dev.employee-scheduling.com](http://dev.employee-scheduling.com) or [http://192.168.33.10](http://192.168.33.10) to connect to your local environment.
 
@@ -166,8 +166,8 @@ Open up your browser and navigate to [http://dev.employee-scheduling.com](http:/
 To start the server in debugging mode you need to ssh into `api` box:
 ```bash
 $ vagrant ssh api -- -L 5858:127.0.0.1:5858 #setup ssh proxy to VM
-$ cd server
-$ node --debug server.js # start server in debug mode
+$ cd api
+$ npm start -- --debug server.js # start server in debug mode
 ```
 Run the following from your HOST machine, not your vagrant box:
 ```bash

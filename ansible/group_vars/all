@@ -1,2 +1,3 @@
 ---
-nodejs_version: "0.10.31"
+nodejs_version: "latest"
+iojs_version: "1.3.0"

@@ -36,14 +36,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
 
-  config.vm.define "ui" do |v|
-    v.vm.provider "docker" do |d|
-      d.image = "phusion/baseimage"
-      d.volumes = ["/var/docker/redis:/data"]
-      d.ports = ["6379:6379"]
-      d.vagrant_vagrantfile = "./Vagrantfile.proxy"
-    end
-  end
+  #config.vm.define "ui" do |v|
+  #  v.vm.provider "docker" do |d|
+  #    d.image = "phusion/baseimage"
+  #    d.volumes = ["/var/docker/redis:/data"]
+  #    d.ports = ["6379:6379"]
+  #    d.vagrant_vagrantfile = "./Vagrantfile.proxy"
+  #  end
+  #end
     servers = {
                 "ui"  => "192.168.33.10",
                 "api" => "192.168.33.11",

@@ -7,3 +7,4 @@
   roles:
     - role: martinmicunda.common
     - role: martinmicunda.iojs
+    - role: laggyluke.direnv

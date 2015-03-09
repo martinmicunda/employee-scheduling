@@ -121,6 +121,7 @@ martinmicunda.common, v1.0.0
 martinmicunda.gulp, v1.0.0
 martinmicunda.nodejs, v1.0.1
 martinmicunda.iojs, v1.0.0
+laggyluke.direnv, v2.5.0
 ```
 **6.** Now, run `vagrant up` that will create `3 Docker containers` and provisioning each of these containers. 
 
@@ -161,6 +162,8 @@ $ cd api
 $ npm start
 ```
 Open up your browser and navigate to [http://dev.employee-scheduling.com](http://dev.employee-scheduling.com) or [http://192.168.33.10](http://192.168.33.10) to connect to your local environment.
+
+>**NOTE:** **The [direnv](http://direnv.net/) is use as an environment variable manager so when you first time cd into api  directory with a `.envrc` file, it will refuse to load the file. This is to protect you, since the contents of the .envrc will be executed by your shell, and they might come from untrusted sources. Simply run `direnv allow`, and it will trust that file until the next time it changes.**
 
 ### Debugging
 To start the server in debugging mode you need to ssh into `api` box:

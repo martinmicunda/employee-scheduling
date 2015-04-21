@@ -1,6 +1,9 @@
 ---
 # Main deployment Vagrant playbook. Deploys whole stack of servers.
 
-- include: uiservers.yml
-- include: apiservers.yml
-- include: dbservers.yml
+- include: ui_servers.yml
+- include: iojs_servers.yml
+- include: db_servers.yml
+- include: nsqlookupd_servers.yml
+- include: nsqadmin_servers.yml
+- include: consul_servers.yml

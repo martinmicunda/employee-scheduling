@@ -10,6 +10,8 @@ An employee scheduling application that makes employee scheduling and management
 - [Technologies Used](#technologies-used)
 - [Architecture Diagram](#architecture-diagram)
     - [Development](#diagram-development)
+    - [Testing](#diagram-testing)
+    - [Staging](#diagram-staging)
     - [Production](#diagram-production)
 - [Directory Layout](#directory-layout)
 - [Installation & Configuration](#installation-and-configuration)
@@ -38,6 +40,12 @@ An employee scheduling application that makes employee scheduling and management
 
 This architecture is running on my Macbook Pro. The laptop runs Vagrant  with three Docker containers (`UI` for static assets, `API` for Node.js application and `DB` for Couchbase database). The Docker provider allows Vagrant to manage development environments that run within containers, rather than virtual machines. This works without any additional software required on Linux, Mac OS X, and Windows. On platforms that don't support Linux Containers natively such as Mac OS X and Windows, Vagrant is smart enough to detect these cases and automatically spins up a Linux virtual machine to run the Docker containers. Vagrant then shares this virtual machine for all Docker-based development environments with Vagrant. That means with just a single virtual machine, Vagrant can manage many Docker environments.
 
+###<a name="diagram-testing"></a>Testing
+TODO: Add local testing diagram. 
+
+###<a name="diagram-staging"></a>Staging
+TODO: Add local staging diagram.
+
 ###<a name="diagram-production"></a>Production
 TODO: Add AWS diagram.
 
@@ -65,8 +73,8 @@ TODO: Add AWS diagram.
 You need to have installed follow tools on your machine:
 
 - [Virtualbox](https://www.virtualbox.org/wiki/Downloads) 4.3.16+
-- [Vagrant](http://www.vagrantup.com/downloads.html) 1.6.2+
-- [Ansible](http://docs.ansible.com/intro_installation.html) 1.7.0+
+- [Vagrant](http://www.vagrantup.com/downloads.html) 1.7.2+
+- [Ansible](http://docs.ansible.com/intro_installation.html) 1.8.2+
 
 ###<a name="installation"></a> Installation
 
@@ -85,7 +93,7 @@ $ git submodule update
 **3.** The following command would add a new `ubuntu trusty64 box`, and if an existing one is found, it will override it:
 
 ```bash
-$ vagrant box add trusty64 http://files.vagrantup.com/trusty64.box --force
+$ vagrant box add ubuntu/trusty64 --force
 ```
 >**NOTE:** This process may take a while, as most Vagrant boxes will be at least **200 MB** big.
 
@@ -148,8 +156,8 @@ $ vagrant ssh db   # ssh to db server
 To make it easier to type, following aliases have been added to your `/etc/hosts` file:
 ```
 192.168.33.10   ui www.dev.employee-scheduling.com dev.employee-scheduling.com
-192.168.33.11   api www.dev.employee-scheduling.com dev.employee-scheduling.com
-192.168.33.12   db www.dev.employee-scheduling.com dev.employee-scheduling.com
+192.168.33.14   nsqadmin www.nsq.employee-scheduling.com nsq.employee-scheduling.com
+192.168.33.16   consul www.consul.employee-scheduling.com consul.employee-scheduling.com
 ```
 Finally, open up your browser and navigate to [http://dev.employee-scheduling.com](http://dev.employee-scheduling.com) or [http://192.168.33.10](http://192.168.33.10) to connect to your local environment.
 
@@ -193,8 +201,9 @@ There’s a ton of commands you can use to talk to Vagrant. For a full list see 
 * `vagrant halt` - use this command to `stop` your virtual environment
 * `vagrant suspend` - use this command to `pause` your virtual environment, make sure you do this before shutting down your computer to safely be able to restore the environment later.
 * `vagrant destroy` - use this command to `removes` your virtual environment from your machine
-* `vagrant reload` - use this command to your virtual environment, if you add the `--provision` flag, it will reprovision the box as well; this is useful with removing or adding things to the server via Ansible.
+* `vagrant reload` - use this command to `reload` your virtual environment, if you add the `--provision` flag, it will reprovision the box as well; this is useful with removing or adding things to the server via Ansible.
 * `vagrant ssh` - use this command to `connect` to the virtual server
+* `vagrant provision` - use this command to `provision` running Vagrant machine
 
 ## Ansible
 To get better understanding how Ansible works check the [official docs](http://docs.ansible.com/). Ansible installs the following software:

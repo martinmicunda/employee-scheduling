@@ -1,0 +1,26 @@
+description "nsqadmin"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+env PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
+
+respawn
+
+script
+  set -e
+  mkfifo /tmp/nsqadmin-log-fifo
+  ( logger -t nsqadmin </tmp/nsqadmin-log-fifo & )
+  exec >/tmp/nsqadmin-log-fifo
+  rm /tmp/nsqadmin-log-fifo
+
+  exec su -s /bin/sh -c 'exec "$0" "$@"' {{ nsq_nsqadmin_user }} -- {{ nsq_nsqadmin_cmd }} \
+    --lookupd-http-address=192.168.33.13:{{ nsq_nsqlookupd_http_port }} \
+    --use-statsd-prefixes={{ nsq_nsqadmin_use_statsd_prefixes }} \
+    --statsd-interval={{ nsq_nsqadmin_statsd_interval }} \
+    --proxy-graphite={{ nsq_nsqadmin_proxy_graphite }} \
+    {% if nsq_nsqadmin_graphite_url -%}
+      --graphite-url={{ nsq_nsqadmin_graphite_url }} \
+    {% endif -%}
+    --http-address={{ nsq_nsqadmin_http_address }} 2>&1
+end script

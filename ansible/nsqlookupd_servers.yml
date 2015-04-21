@@ -1,0 +1,9 @@
+---
+# nsqlookupd servers deployment playbook.
+
+- name: Install nsqlookupd on given set of hosts
+  hosts: nsqlookupd-servers
+  sudo: yes
+  roles:
+    - role: savagegus.consul
+    - { role: retr0h.nsq, nsq_nsqlookupd_server: true }

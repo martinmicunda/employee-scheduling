@@ -1,0 +1,87 @@
+---
+nsq_version: 0.2.30
+nsq_go_version: go1.3
+nsq_arch: linux-amd64
+nsq_release: "nsq-{{ nsq_version }}.{{ nsq_arch }}.{{ nsq_go_version}}"
+nsq_download_url: "https://s3.amazonaws.com/bitly-downloads/nsq/nsq-{{ nsq_version }}.{{ nsq_arch }}.{{ nsq_go_version }}.tar.gz"
+nsq_download_dir: /usr/local/src
+nsq_dir: /usr/local/sbin
+nsq_binaries:
+  - bin/nsqadmin
+  - bin/nsqd
+  - bin/nsqlookupd
+  - bin/nsq_pubsub
+  - bin/nsq_stat
+  - bin/nsq_tail
+  - bin/nsq_to_file
+  - bin/nsq_to_http
+  - bin/nsq_to_nsq
+  - bin/to_nsq
+nsq_data_path: /var/spool/nsq
+
+nsq_nsqadmin_server: false
+nsq_nsqadmin_user: nsqadmin
+nsq_nsqadmin_user: nsqadmin
+nsq_nsqadmin_cmd: "{{ nsq_dir }}/nsqadmin"
+nsq_nsqadmin_http_port: 4171
+nsq_nsqadmin_interface: lo
+nsq_nsqadmin_addr: "{{ hostvars[inventory_hostname]['ansible_' + nsq_nsqd_interface]['ipv4']['address'] }}"
+nsq_nsqadmin_graphite_url:
+nsq_nsqadmin_proxy_graphite: true
+nsq_nsqadmin_http_address: "{{ nsq_nsqadmin_addr }}:{{ nsq_nsqadmin_http_port }}"
+nsq_nsqadmin_notification_http_endpoint: nil
+nsq_nsqadmin_nsqd_http_address: []
+nsq_nsqadmin_use_statsd_prefixes: true
+nsq_nsqadmin_verbose: false
+nsq_nsqadmin_statsd_interval: 30s
+
+nsq_nsqd_server: false
+nsq_nsqd_user: nsqd
+nsq_nsqd_group: nsqd
+nsq_nsqd_cmd: "{{ nsq_dir }}/nsqd"
+nsq_nsqd_tcp_port: 4150
+nsq_nsqd_http_port: 4151
+nsq_nsqd_interface: lo
+nsq_nsqd_addr: "{{ hostvars[inventory_hostname]['ansible_' + nsq_nsqd_interface]['ipv4']['address'] }}"
+nsq_nsqd_http_address: "{{ nsq_nsqd_addr }}:{{ nsq_nsqd_http_port }}"
+nsq_nsqd_max_heartbeat_interval: 1m0s
+nsq_nsqd_data_path: "{{ nsq_data_path }}"
+nsq_nsqd_tls_cert:
+nsq_nsqd_tls_key:
+nsq_nsqd_filehandle_limit:
+nsq_nsqd_nproc:
+nsq_nsqd_max_body_size: 5123840
+nsq_nsqd_max_bytes_per_file: 104857600
+nsq_nsqd_max_message_size: 1024768
+nsq_nsqd_mem_queue_size: 10000
+nsq_nsqd_max_msg_timeout: 15m0s
+nsq_nsqd_max_rdy_count: 2500
+nsq_nsqd_msg_timeout: 15m0s
+nsq_nsqd_statsd_address: 127.0.0.1:8125
+nsq_nsqd_statsd_interval: 30
+nsq_nsqd_statsd_mem_stats: true
+nsq_nsqd_statsd_prefix: nsq.%s
+nsq_nsqd_sync_every: 2500
+nsq_nsqd_sync_timeout: 2s
+nsq_nsqd_tcp_address: "{{ nsq_nsqd_addr }}:{{ nsq_nsqd_tcp_port }}"
+nsq_nsqd_verbose: false
+nsq_nsqd_worker_id: 0
+nsq_nsqd_broadcast_address: "{{ nsq_nsqd_addr }}"
+nsq_nsqd_e2e_processing_latency_percentile: 1.0,0.99,0.95
+nsq_nsqd_e2e_processing_latency_window_time: 10m0s
+
+nsq_nsqlookupd_server: false
+nsq_nsqlookupd_user: nsqlookupd
+nsq_nsqlookupd_user: nsqlookupd
+nsq_nsqlookupd_role: nsqlookupd
+nsq_nsqlookupd_cmd: "{{ nsq_dir }}/nsqlookupd"
+nsq_nsqlookupd_tcp_port: 4160
+nsq_nsqlookupd_http_port: 4161
+nsq_nsqlookupd_interface: lo
+nsq_nsqlookupd_addr: "{{ hostvars[inventory_hostname]['ansible_' + nsq_nsqd_interface]['ipv4']['address'] }}"
+nsq_nsqlookupd_http_address: "{{ nsq_nsqlookupd_addr }}:{{ nsq_nsqlookupd_http_port }}"
+nsq_nsqlookupd_inactive_producer_timeout: 5m0s
+nsq_nsqlookupd_tcp_address: "{{ nsq_nsqlookupd_addr }}:{{ nsq_nsqlookupd_tcp_port }}"
+nsq_nsqlookupd_broadcast_address: "{{ nsq_nsqlookupd_addr }}"
+nsq_nsqlookupd_tombstone_lifetime: 45s
+nsq_nsqlookupd_verbose: false

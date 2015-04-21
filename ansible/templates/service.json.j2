@@ -1,0 +1,14 @@
+{
+    "services": [
+        {
+            "name": "nsqd",
+            "port": 4151,
+            "tags": ["nsq"],
+            "check": {
+                "http": "http://192.168.33.15:4151/ping",
+                "interval": "5s",
+                "timeout": "1s"
+            }
+        }
+    ]
+}

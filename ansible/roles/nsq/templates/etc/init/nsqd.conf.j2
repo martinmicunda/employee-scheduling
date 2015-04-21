@@ -1,0 +1,52 @@
+description "nsqd"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+{% if nsq_nsqd_filehandle_limit -%}
+limit nofile {{ nsq_nsqd_filehandle_limit }} {{ nsq_nsqd_filehandle_limit }}
+{% endif -%}
+{% if nsq_nsqd_nproc -%}
+limit nproc {{ nsq_nsqd_nproc }} {{ nsq_nsqd_nproc }}
+{% endif -%}
+
+env PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
+
+respawn
+
+script
+  set -e
+  mkfifo /tmp/nsqd-log-fifo
+  ( logger -t nsqd </tmp/nsqd-log-fifo & )
+  exec >/tmp/nsqd-log-fifo
+  rm /tmp/nsqd-log-fifo
+
+  exec su -s /bin/sh -c 'exec "$0" "$@"' {{ nsq_nsqd_user }} -- {{ nsq_nsqd_cmd }} \
+    --data-path={{ nsq_nsqd_data_path }} \
+    --http-address={{ nsq_nsqd_http_address }} \
+    --lookupd-tcp-address=192.168.33.13:{{ nsq_nsqlookupd_tcp_port }} \
+    --e2e-processing-latency-percentile={{ nsq_nsqd_e2e_processing_latency_percentile }} \
+    --e2e-processing-latency-window-time={{ nsq_nsqd_e2e_processing_latency_window_time }} \
+    {% if nsq_nsqd_tls_key -%}
+      --tls-cert={{ nsq_nsqd_tls_key }} \
+    {% endif -%}
+    {% if nsq_nsqd_tls_cert -%}
+      --tls-cert={{ nsq_nsqd_tls_cert }} \
+    {% endif -%}
+    --max-body-size={{ nsq_nsqd_max_body_size }} \
+    --max-bytes-per-file={{ nsq_nsqd_max_bytes_per_file }} \
+    --max-message-size={{ nsq_nsqd_max_message_size }} \
+    --max-msg-timeout={{ nsq_nsqd_max_msg_timeout }} \
+    --max-rdy-count={{ nsq_nsqd_max_rdy_count }} \
+    --mem-queue-size={{ nsq_nsqd_mem_queue_size }} \
+    --msg-timeout={{ nsq_nsqd_msg_timeout }} \
+    --statsd-address={{ nsq_nsqd_statsd_address }} \
+    --statsd-interval={{ nsq_nsqd_statsd_interval }} \
+    --statsd-mem-stats={{ nsq_nsqd_statsd_mem_stats }} \
+    --statsd-prefix={{ nsq_nsqd_statsd_prefix }} \
+    --sync-every={{ nsq_nsqd_sync_every }} \
+    --sync-timeout={{ nsq_nsqd_sync_timeout }} \
+    --tcp-address={{ nsq_nsqd_tcp_address }} \
+    --broadcast-address={{ nsq_nsqd_broadcast_address }} \
+    --verbose={{ nsq_nsqd_verbose }} 2>&1
+end script

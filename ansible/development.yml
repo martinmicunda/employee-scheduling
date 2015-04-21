@@ -1,0 +1,10 @@
+---
+- name: Create VM box for development
+  hosts: all
+  sudo: yes
+  roles:
+    - role: martinmicunda.common
+    - role: martinmicunda.iojs
+    - role: laggyluke.direnv
+    - { role: nsq, nsq_nsqd_server: true }
+    - role: savagegus.consul

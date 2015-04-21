@@ -1,0 +1,10 @@
+---
+- name: add nsqadmin user
+  user: name={{ nsq_nsqadmin_user }}
+        system=yes
+        shell=/bin/false
+
+- name: nsqadmin upstart service
+  template: src=etc/init/nsqadmin.conf.j2 dest=/etc/init/nsqadmin.conf
+  notify:
+    - restart nsqadmin

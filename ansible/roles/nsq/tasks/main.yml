@@ -1,0 +1,21 @@
+---
+- name: download nsq
+  get_url: url={{ nsq_download_url }} dest={{ nsq_download_dir }}/nsq.zip
+
+- name: unarchive nsq
+  unarchive: copy=no
+             src={{ nsq_download_dir }}/nsq.zip
+             dest={{ nsq_download_dir }}
+
+# TODO(retr0h): Sucks the `copy` module doesn't do this.
+#               We get idempotency from `rsync(1)`.
+- name: copy binaries from archive into nsq dir
+  shell: rsync -auv {{ nsq_download_dir }}/{{ nsq_release }}/{{ item }} {{ nsq_dir }}
+  with_items: nsq_binaries
+
+- include: nsqadmin.yml
+  when: nsq_nsqadmin_server
+- include: nsqd.yml
+  when: nsq_nsqd_server
+- include: nsqlookupd.yml
+  when: nsq_nsqlookupd_server

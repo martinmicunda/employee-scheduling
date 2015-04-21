@@ -20,6 +20,9 @@ unless Vagrant.has_plugin?("vagrant-hostmanager")
     raise 'Vagrant-hostmanager is not installed! Please run `vagrant plugin install vagrant-hostmanager` before continuing`.'
 end
 
+# https://github.com/voytek-solutions/vm/blob/master/machines%2Fweb%2FVagrantfile
+# https://github.com/bascht/consul-playground/blob/master/app%2FVagrantfile
+# http://thornelabs.net/2014/11/13/multi-machine-vagrantfile-with-shorter-cleaner-syntax-using-json-and-loops.html
 #####################################################################################
 #                             VAGRANT MAGIC BEGINS HERE                             #
 #-----------------------------------------------------------------------------------#
@@ -36,33 +39,57 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
 
-  #config.vm.define "ui" do |v|
-  #  v.vm.provider "docker" do |d|
-  #    d.image = "phusion/baseimage"
-  #    d.volumes = ["/var/docker/redis:/data"]
-  #    d.ports = ["6379:6379"]
-  #    d.vagrant_vagrantfile = "./Vagrantfile.proxy"
-  #  end
-  #end
-    servers = {
-                "ui"  => "192.168.33.10",
-                "api" => "192.168.33.11",
-                "db"  => "192.168.33.12",
+     servers = {
+                "ui"         => "192.168.33.10",
+                "api"        => "192.168.33.11",
+                "db"         => "192.168.33.12",
+                "nsqlookupd" => "192.168.33.13",
+                "nsqadmin"   => "192.168.33.14",
+                "services"   => "192.168.33.15",
+                "consul"     => "192.168.33.16"
               }
 
-    servers.each do |server_name, server_ip|
-        config.vm.define server_name do |server_conf|
-            server_conf.vm.hostname = server_name
-            server_conf.vm.network "private_network", ip: server_ip
-            server_conf.vm.synced_folder "./" + server_name, "/home/vagrant/" + server_name
-            server_conf.hostmanager.aliases = ["www.dev." + PROJECT_NAME  + ".com", "dev." + PROJECT_NAME + ".com"]
-        end
+    if ENV['env'] == 'test'
+      config.vm.define "dev" do |server_conf|
+        server_conf.vm.hostname = "dev"
+        server_conf.vm.network "private_network", ip: "192.168.33.10"
+        server_conf.vm.synced_folder "./api", "/home/vagrant/api"
+        server_conf.hostmanager.aliases = ["www.dev." + PROJECT_NAME  + ".com", "dev." + PROJECT_NAME + ".com"]
+      end
     end
+
+
+        #if ENV['env'] == 'development'
+        servers.each do |server_name, server_ip|
+            config.vm.define server_name do |server_conf|
+                server_conf.vm.hostname = server_name
+                server_conf.vm.network "private_network", ip: server_ip
+
+                # only synchronize `ui`, `services` and `api` folders
+                if server_name == 'ui' || server_name == 'api' || server_name == 'services'
+                    server_conf.vm.synced_folder "./" + server_name, "/home/vagrant/" + server_name
+                end
+
+                case server_name
+                    when 'ui'
+                        server_conf.hostmanager.aliases = ["www.dev." + PROJECT_NAME  + ".com", "dev." + PROJECT_NAME + ".com"]
+                    when 'nsqadmin'
+                        server_conf.hostmanager.aliases = ["www.nsq." + PROJECT_NAME  + ".com", "nsq." + PROJECT_NAME + ".com"]
+                    when 'consul'
+                        server_conf.hostmanager.aliases = ["www.consul." + PROJECT_NAME  + ".com", "consul." + PROJECT_NAME + ".com"]
+                end
+            end
+        end
+        #end
 
     # Provision the VirtualBoxes with Ansible
     config.vm.provision "ansible" do |ansible|
         ansible.playbook = "ansible/vagrant.yml"
-        ansible.inventory_path = "ansible/inventories/development"
+        ansible.groups = {
+          "dev" => ["dev"],
+          "testing:children" => ["dev"]
+        }
+        # ansible.inventory_path = "ansible/inventories/testing" #development
         ansible.raw_arguments = ['-v']
     end
 

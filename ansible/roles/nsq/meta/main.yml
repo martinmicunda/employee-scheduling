@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: John Dewey
+  description: Install and manage NSQ.
+  company:
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+    - quantal
+    - raring
+    - saucy
+    - trusty
+  categories:
+  - system
+dependencies: []

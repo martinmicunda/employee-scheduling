@@ -1,21 +1,38 @@
 # development hosts
 
 [all-hosts]
-ui  ansible_ssh_host=192.168.33.10
-api ansible_ssh_host=192.168.33.11
-db  ansible_ssh_host=192.168.33.12
+ui         ansible_ssh_host=192.168.33.10
+api        ansible_ssh_host=192.168.33.11
+db         ansible_ssh_host=192.168.33.12
+nsqlookupd ansible_ssh_host=192.168.33.13
+nsqadmin   ansible_ssh_host=192.168.33.14
+services   ansible_ssh_host=192.168.33.15
+consul     ansible_ssh_host=192.168.33.16
 
-[uiservers]
+[ui-servers]
 ui
 
-[apiservers]
+[iojs-servers]
 api
+services
 
-[dbservers]
+[db-servers]
 db
+
+[nsqlookupd-servers]
+nsqlookupd
+
+[nsqadmin-servers]
+nsqadmin
+
+[consul-servers]
+consul
 
 # this guarantee that vars from group_vars/development would be loaded (Note: a keyword `development` is mapping hack here to file in group_vars/ folder)
 [development:children]
-uiservers
-apiservers
-dbservers
+ui-servers
+iojs-servers
+db-servers
+nsqlookupd-servers
+nsqadmin-servers
+consul-servers

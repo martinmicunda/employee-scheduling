@@ -2,7 +2,7 @@
 # Webservers deployment playbook.
 
 - name: deploy nginx and configure web servers
-  hosts: uiservers
+  hosts: ui-servers
   sudo: yes
   roles:
 #    - role: martinmicunda.common

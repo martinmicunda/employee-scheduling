@@ -1,0 +1,19 @@
+---
+- shell: test -f /usr/local/sbin/{{ item }}
+  register: test_result
+  with_items:
+    - nsqadmin
+    - nsqd
+    - nsqlookupd
+    - nsq_pubsub
+    - nsq_stat
+    - nsq_tail
+    - nsq_to_file
+    - nsq_to_http
+    - nsq_to_nsq
+    - to_nsq
+- name: ensure nsq binaries were copied
+  assert:
+    that:
+      - "{{ item.rc }} == 0"
+  with_items: test_result.results

@@ -1,0 +1,16 @@
+{
+    "services": [
+        {
+            "name": "nsq-admin",
+            "port": 4171,
+            "tags": ["nsq", "admin'],
+            "check": {
+                "id": "nsq_admin_check",
+                "name": "NSQ Admin Health Check",
+                "http": "http://192.168.33.14:4171",
+                "interval": "5s",
+                "timeout": "1s"
+            }
+        }
+    ]
+}

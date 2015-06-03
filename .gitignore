@@ -22,3 +22,10 @@ node_modules
 
 # IDEs
 .idea/
+
+.cache/
+.config/
+.node-gyp/
+.npm/
+
+

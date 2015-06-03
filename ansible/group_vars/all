@@ -1,6 +1,8 @@
 ---
 nodejs_version: latest
-iojs_version: 1.5.1
+iojs_version: 2.2.1
+
+docker_compose_version: 1.2.0
 
 nsq_version: 0.3.2
 nsq_go_version: go1.4.1

@@ -1,0 +1,16 @@
+#api:
+#    build: ./node
+#    links:
+#        - redis
+#    ports:
+#        - "8080"
+#api:
+#    build: .
+#    links:
+#        - db
+#    ports:
+#        - "3030:3000"
+db:
+  image: couchbase/server:community-3.0.1
+  ports:
+   - "8091:8091"

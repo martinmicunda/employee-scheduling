@@ -42,9 +42,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.hostname = "employee-scheduling"
     config.vm.network "private_network", ip: "192.168.33.10"
-    config.vm.synced_folder "./api", "/home/vagrant/api"
+    #config.vm.synced_folder "./api", "/home/vagrant/api"
     #config.vm.synced_folder "./ui", "/home/vagrant/ui"
-    #config.vm.synced_folder "./", "/home/vagrant/"
+    config.vm.synced_folder "./", "/home/vagrant/"
 
     # Provision the VirtualBoxes with Ansible
     config.vm.provision "ansible" do |ansible|

@@ -3,13 +3,11 @@
   hosts: all
   sudo: yes
   roles:
-#    - angstwad.docker_ubuntu
-#    - franklinkim.docker-compose
-#    - martinmicunda.common
+    - angstwad.docker_ubuntu
+    - franklinkim.docker-compose
+    - martinmicunda.common
     - martinmicunda.iojs
 #    - role: laggyluke.direnv
-#    - { role: nsq, nsq_nsqd_server: true }
-#    - role: savagegus.consul
   tasks:
     - name: add user vagrant to the docker group to avoid type sudo for each docker command
       user: name=vagrant

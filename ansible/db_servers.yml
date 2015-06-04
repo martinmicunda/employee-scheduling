@@ -1,9 +1,0 @@
----
-# Dbservers deployment playbook.
-
-- name: deploy mongodb and configure the databases
-  hosts: db-servers
-  sudo: yes
-  roles:
-    - role: martinmicunda.common
-    - { role: mongodb, tags: mongodb }

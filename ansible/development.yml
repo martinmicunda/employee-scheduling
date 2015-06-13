@@ -7,7 +7,7 @@
     - franklinkim.docker-compose
     - martinmicunda.common
     - martinmicunda.iojs
-#    - role: laggyluke.direnv
+    - laggyluke.direnv
   tasks:
     - name: add user vagrant to the docker group to avoid type sudo for each docker command
       user: name=vagrant

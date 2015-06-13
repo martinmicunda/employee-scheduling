@@ -17,9 +17,6 @@ unless Vagrant.has_plugin?("vagrant-hostmanager")
     raise 'Vagrant-hostmanager is not installed! Please run `vagrant plugin install vagrant-hostmanager` before continuing`.'
 end
 
-# https://github.com/voytek-solutions/vm/blob/master/machines%2Fweb%2FVagrantfile
-# https://github.com/bascht/consul-playground/blob/master/app%2FVagrantfile
-# http://thornelabs.net/2014/11/13/multi-machine-vagrantfile-with-shorter-cleaner-syntax-using-json-and-loops.html
 #####################################################################################
 #                             VAGRANT MAGIC BEGINS HERE                             #
 #-----------------------------------------------------------------------------------#
@@ -32,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.manage_host = true
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
-    config.hostmanager.aliases = ["www.dev.employee-scheduling.local", "dev.employee-scheduling.local"]
+    config.hostmanager.aliases = ["www.employee-scheduling.local", "employee-scheduling.local"]
 
     # Set up SSH agent forwarding
     config.ssh.forward_agent = true
@@ -59,7 +56,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # this is the name in the VirtualBox Manager UI
         vb.name = "employee-scheduling-dev"
         # set the system memory for the virtual machine
-        vb.memory = 1024
+        vb.memory = 2048
         # number of Physical CPUs to allocate
         vb.cpus = 2
     end

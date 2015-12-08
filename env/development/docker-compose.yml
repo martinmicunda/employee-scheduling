@@ -17,10 +17,13 @@
 #  ports:
 #    - "3030:3000"
 db:
-  image: couchbase/server:community-3.0.1
+  image: couchbase/server:enterprise-4.0.0-rc0
   ports:
     - "8091:8091"
+    - "8093:8093" # N1QL
     - "11210:11210" # this should not be required once I will get link containers work together
+#    8091 8092 11207 11210 11211 18091 18092
+#    8091 8092 11207 11210 11211 18091 18092
 
 #¡¡¡ https://blog.codeship.com/orchestrate-containers-for-development-with-docker-compose/
 # https://github.com/CodeshipExamples/docker-compose

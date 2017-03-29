@@ -4,7 +4,7 @@ Employee Scheduling
 
 An employee scheduling application that makes employee scheduling and management easy, fast and mobile.
 
-**Note: :warning: This project is under development.**
+**:warning: The beta version can be found in [schedulino.com](https://schedulino.com) :warning:**
 
 ## Table of Contents
 - [Technologies Used](#technologies-used)
